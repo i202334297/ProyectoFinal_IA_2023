@@ -1,0 +1,137 @@
+package gui;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextField;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class DlgConsultarCeramico extends JDialog implements ActionListener{
+
+	private final JPanel contentPanel = new JPanel();
+	private JTextField txtPrecio;
+	private JTextField txtAncho;
+	private JTextField txtLargo;
+	private JTextField txtEspesor;
+	private JTextField txtContenido;
+	private JLabel lblModelo;
+	private JLabel lblPrecio;
+	private JLabel lblAncho;
+	private JLabel lblLargo;
+	private JLabel lblEspesor;
+	private JLabel lblContenido;
+	private JComboBox <String> cboMarca;
+	private JButton btnCerrar;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			DlgConsultarCeramico dialog = new DlgConsultarCeramico();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public DlgConsultarCeramico() {
+		setTitle("Mantenimiento | Consultar Cer\u00E1mico");
+		setBounds(100, 100, 496, 255);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		
+		lblModelo = new JLabel("Modelo");
+		lblModelo.setBounds(10, 23, 65, 14);
+		contentPanel.add(lblModelo);
+		
+		lblPrecio = new JLabel("Precio (S/)");
+		lblPrecio.setBounds(10, 52, 65, 14);
+		contentPanel.add(lblPrecio);
+		
+		lblAncho = new JLabel("Ancho (cm)");
+		lblAncho.setBounds(10, 83, 65, 14);
+		contentPanel.add(lblAncho);
+		
+		lblLargo = new JLabel("Largo (cm)");
+		lblLargo.setBounds(10, 115, 75, 14);
+		contentPanel.add(lblLargo);
+		
+		lblEspesor = new JLabel("Espesor (mm)");
+		lblEspesor.setBounds(10, 146, 75, 14);
+		contentPanel.add(lblEspesor);
+		
+		lblContenido = new JLabel("Contenido");
+		lblContenido.setBounds(10, 182, 65, 14);
+		contentPanel.add(lblContenido);
+		
+		cboMarca = new JComboBox<String>();
+		cboMarca.addActionListener(this);
+		cboMarca.setModel(new DefaultComboBoxModel
+				<String> (new String[] {"Cinza Plus", "Luxury", "Austria", "Yungay Mix", "Thalia"}));
+		cboMarca.setBounds(141, 19, 197, 22);
+		contentPanel.add(cboMarca);
+		
+		txtPrecio = new JTextField();
+		txtPrecio.setBounds(141, 49, 197, 20);
+		contentPanel.add(txtPrecio);
+		txtPrecio.setColumns(10);
+		
+		txtAncho = new JTextField();
+		txtAncho.setColumns(10);
+		txtAncho.setBounds(141, 80, 197, 20);
+		contentPanel.add(txtAncho);
+		
+		txtLargo = new JTextField();
+		txtLargo.setColumns(10);
+		txtLargo.setBounds(141, 112, 197, 20);
+		contentPanel.add(txtLargo);
+		
+		txtEspesor = new JTextField();
+		txtEspesor.setColumns(10);
+		txtEspesor.setBounds(141, 143, 197, 20);
+		contentPanel.add(txtEspesor);
+		
+		txtContenido = new JTextField();
+		txtContenido.setColumns(10);
+		txtContenido.setBounds(141, 179, 197, 20);
+		contentPanel.add(txtContenido);
+		
+		btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(this);
+		btnCerrar.setBounds(381, 19, 89, 23);
+		contentPanel.add(btnCerrar);
+	}
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btnCerrar) {
+			actionPerformedBtnCerrar(e);
+		}
+		if(e.getSource()==cboMarca) {
+			actionPerformedCboMarca(e);
+		}
+	}
+
+	protected void actionPerformedCboMarca(ActionEvent e) {
+		
+		
+	}
+	protected void actionPerformedBtnCerrar(ActionEvent e) {
+		
+		dispose();
+		
+	}
+}

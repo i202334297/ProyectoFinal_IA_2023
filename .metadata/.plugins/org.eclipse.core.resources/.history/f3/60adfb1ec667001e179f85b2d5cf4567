@@ -1,0 +1,67 @@
+package gui;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+
+
+public class MiProyecto extends JFrame implements ActionListener{
+
+	private JPanel contentPane;
+	private JMenuBar menuBar;
+	private JMenu mnArchivo;
+	private JMenuItem mntmSalir;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MiProyecto frame = new MiProyecto();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public MiProyecto() {
+		setTitle("Proyecto_IA_2023_01 =)  :v  :)");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 769, 459);
+		
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		mnArchivo = new JMenu("Archivo");
+		menuBar.add(mnArchivo);
+		
+		mntmSalir = new JMenuItem("Salir");
+		mntmSalir.addActionListener(this);
+		mnArchivo.add(mntmSalir);
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+	}
+	public void actionPerformed(ActionEvent arg0) {
+		if(arg0.getSource()==mntmSalir) {
+			actionPerformedMntmSalir(arg0);
+		}
+	}
+	protected void actionPerformedMntmSalir(ActionEvent arg0) {
+		
+	}
+}
