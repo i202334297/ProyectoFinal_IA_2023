@@ -90,8 +90,7 @@ public class DlgConsultarCeramico extends JDialog implements ActionListener{
 		
 		cboMarca = new JComboBox<String>();
 		cboMarca.addActionListener(this);
-		cboMarca.setModel(new DefaultComboBoxModel <String>
-						 (new String[] {"Cinza Plus", "Luxury", "Austria", "Yungay Mix", "Thalia"}));
+		cboMarca.setModel(new DefaultComboBoxModel<String>(new String[] {"Cinza Plus", "Luxury", "Austria", "Yungay Mix", "Thalia"}));
 		cboMarca.setBounds(141, 19, 197, 22);
 		contentPanel.add(cboMarca);
 		

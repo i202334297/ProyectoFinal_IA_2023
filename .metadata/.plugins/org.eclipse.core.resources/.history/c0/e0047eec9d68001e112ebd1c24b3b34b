@@ -1,0 +1,120 @@
+package gui;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+public class DlgVender extends JDialog implements ActionListener{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final JPanel contentPanel = new JPanel();
+	private JTextField textField;
+	private JTextField textField_1;
+	private JLabel lblModelo;
+	private JLabel lblPrecio;
+	private JLabel lblModelo_1_1;
+	private JComboBox<String>comboBox;
+	private JButton btnVender;
+	private JButton btnCerrar;
+	private JScrollPane scrollPane;
+	private JTextArea textArea;
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			DlgVender dialog = new DlgVender();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public DlgVender() {
+		setTitle("Ventas | Vender");
+		setBounds(100, 100, 521, 317);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		
+		lblModelo = new JLabel("Modelo");
+		lblModelo.setBounds(10, 11, 72, 14);
+		contentPanel.add(lblModelo);
+		
+		lblPrecio = new JLabel("Precio (S/)");
+		lblPrecio.setBounds(10, 36, 72, 14);
+		contentPanel.add(lblPrecio);
+		
+		lblModelo_1_1 = new JLabel("Cantidad");
+		lblModelo_1_1.setBounds(10, 61, 72, 14);
+		contentPanel.add(lblModelo_1_1);
+		
+		comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Cinza Plus", "Luxury", "Austria", "Yungay Mix", "Thalia"}));
+		comboBox.setBounds(92, 7, 196, 22);
+		contentPanel.add(comboBox);
+	
+		textField = new JTextField();
+		textField.setBounds(92, 33, 196, 20);
+		contentPanel.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(92, 58, 196, 20);
+		contentPanel.add(textField_1);
+		
+		btnVender = new JButton("Vender");
+		btnVender.addActionListener(this);
+		btnVender.setBounds(406, 7, 89, 23);
+		contentPanel.add(btnVender);
+		
+		btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(this);
+		btnCerrar.setBounds(406, 32, 89, 23);
+		contentPanel.add(btnCerrar);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 88, 485, 179);
+		contentPanel.add(scrollPane);
+		
+		textArea = new JTextArea();
+		scrollPane.setViewportView(textArea);
+	}
+	public void actionPerformed (ActionEvent arg0) {
+		if (arg0.getSource()==btnVender) {
+			actionPerformedBtnVender(arg0);
+		}
+		if (arg0.getSource()==btnCerrar) {
+			actionPerformedBtnCerrar(arg0);
+		}
+		
+	}
+	protected void actionPerformedBtnVender (ActionEvent arg0) {
+		
+	}
+	protected void actionPerformedBtnCerrar (ActionEvent arg0) {
+		
+		
+	}
+}

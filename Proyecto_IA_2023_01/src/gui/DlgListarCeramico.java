@@ -22,6 +22,7 @@ public class DlgListarCeramico extends JDialog implements ActionListener{
 	private JScrollPane scrollPane;
 	private JTextArea txtS;
 	private JButton btnCerrar;
+	private JButton btnListar;
 	
 	
 	
@@ -59,14 +60,21 @@ public class DlgListarCeramico extends JDialog implements ActionListener{
 		
 		btnCerrar = new JButton("Cerrar");
 		btnCerrar.addActionListener(this);
-		btnCerrar.setBounds(204, 299, 89, 23);
+		btnCerrar.setBounds(154, 298, 89, 23);
 		contentPanel.add(btnCerrar);
 		
-		listar();
+		btnListar = new JButton("Listar");
+		btnListar.addActionListener(this);
+		btnListar.setBounds(253, 298, 89, 23);
+		contentPanel.add(btnListar);
+		
 	}
 	public void actionPerformed (ActionEvent e) {
 		if (e.getSource()==btnCerrar) {
 			actionPerformedBtnCerrar(e);
+		}
+		if (e.getSource()==btnListar) {
+			actionPerformedBtnListar(e);
 		}
 	}
 	protected void actionPerformedBtnListar(ActionEvent e) {
@@ -81,7 +89,7 @@ public class DlgListarCeramico extends JDialog implements ActionListener{
 	}
 	
 	void listar() {
-		imprimir("LISTADO DE MALETAS");
+		imprimir("LISTADO DE CERÁMICOS");
 		imprimir("");
 		imprimir("Marca           :  " + MiProyecto.modelo0);
 		imprimir("Precio    (S/)  :  " + formatear(MiProyecto.precio0));

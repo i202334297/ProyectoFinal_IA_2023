@@ -28,7 +28,11 @@ public class MiProyecto extends JFrame implements ActionListener{
 	private JMenuItem mntmConsultarCeramico;
 	private JMenuItem mntmModificarCeramico;
 	private JMenuItem mntmListarCeramicos;
-	
+	private JMenu mnVentas;
+	private JMenuItem mntmVender;
+	private JMenuItem mntmGenerarReportes;
+	private JMenu mnConfigurar;
+	private JMenuItem mntmConfigurarDescuentos;
 	
 	
 	// Datos mínimos del primer producto
@@ -80,6 +84,7 @@ public class MiProyecto extends JFrame implements ActionListener{
 	public static int cantidadOptima = 10;
 	// Cuota diaria
 	public static double cuotaDiaria = 30000;
+	private JMenuItem mntmConfigurarObsequios;
 
 	
 	/**
@@ -131,6 +136,28 @@ public class MiProyecto extends JFrame implements ActionListener{
 		mntmListarCeramicos.addActionListener(this);
 		mnMantenimiento.add(mntmListarCeramicos);
 		
+		mnVentas = new JMenu("Ventas");
+		menuBar.add(mnVentas);
+		
+		mntmVender = new JMenuItem("Vender");
+		mntmVender.addActionListener(this);
+		mnVentas.add(mntmVender);
+		
+		mntmGenerarReportes = new JMenuItem("Generar Reportes");
+		mntmGenerarReportes.addActionListener(this);
+		mnVentas.add(mntmGenerarReportes);
+		
+		mnConfigurar = new JMenu("Configuraci\u00F3n");
+		menuBar.add(mnConfigurar);
+		
+		mntmConfigurarDescuentos = new JMenuItem("Configurar Descuentos");
+		mntmConfigurarDescuentos.addActionListener(this);
+		mnConfigurar.add(mntmConfigurarDescuentos);
+		
+		mntmConfigurarObsequios = new JMenuItem("Configurar Obsequios");
+		mntmConfigurarObsequios.addActionListener(this);
+		mnConfigurar.add(mntmConfigurarObsequios);
+		
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -150,6 +177,19 @@ public class MiProyecto extends JFrame implements ActionListener{
 		if (arg0.getSource()==mntmListarCeramicos) {
 			actionPerformedMntmListarCeramicos(arg0);
 		}
+		if (arg0.getSource()==mntmVender) {
+			actionPerformedMntmVender(arg0);
+		}
+		if (arg0.getSource()==mntmGenerarReportes) {
+			actionPerformedMntmGenerarReportes(arg0);
+		}
+		if (arg0.getSource()==mntmConfigurarDescuentos) {
+			actionPerformedMntmConfigurarDescuentos(arg0);
+		}
+		if (arg0.getSource()==mntmConfigurarObsequios) {
+			actionPeformedMntmConfigurarObsequios(arg0);
+		}
+		
 	}
 	protected void actionPerformedMntmSalir(ActionEvent arg0) {
 		
@@ -171,13 +211,32 @@ public class MiProyecto extends JFrame implements ActionListener{
 		dmc.setVisible(true);
 	}
 	
-	protected void actionPerformedMntmListarCeramicos(ActionEvent arg0) {
-		
+	protected void actionPerformedMntmListarCeramicos(ActionEvent arg0) {		
 		DlgListarCeramico dlc =new DlgListarCeramico();
 		dlc.setLocationRelativeTo(this);
-		dlc.setVisible(true);
-		
+		dlc.setVisible(true);	
 	}
+	protected void actionPerformedMntmVender(ActionEvent arg0) {
+		DlgVender dv = new DlgVender();
+		dv.setLocationRelativeTo(this);
+		dv.setVisible(true);		
+	}
+	protected void actionPerformedMntmGenerarReportes(ActionEvent arg0) {
+		DlgGenerarReportes dgr = new DlgGenerarReportes();
+		dgr.setLocationRelativeTo(this);
+		dgr.setVisible(true);	
+	}
+	protected void actionPerformedMntmConfigurarDescuentos(ActionEvent arg0) {
+		DlgConfigurarDescuentos dcd = new DlgConfigurarDescuentos();
+		dcd.setLocationRelativeTo(this);
+		dcd.setVisible(true);
+	}
+	protected void actionPeformedMntmConfigurarObsequios(ActionEvent arg0) {
+		DlgConfigurarObsequios dco = new DlgConfigurarObsequios();
+		dco.setLocationRelativeTo(this);
+		dco.setVisible(true);
+	}
+	
 	
 	
 	void mensaje(String s) {

@@ -197,6 +197,8 @@ public class DlgModificarCeramico extends JDialog implements ActionListener{
 			double largo = leerReal (txtLargo);
 			double espesor = leerReal (txtEspesor);
 			int contenido = Integer.parseInt(txtContenido.getText());
+
+			
 //	        double precio    = 0; //= leerReal(txtPrecio);
 //	        double ancho     = 0;
 //	        double largo     = 0;
