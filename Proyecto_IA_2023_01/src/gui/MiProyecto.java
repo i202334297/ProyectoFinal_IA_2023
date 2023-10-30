@@ -33,50 +33,52 @@ public class MiProyecto extends JFrame implements ActionListener{
 	private JMenuItem mntmGenerarReportes;
 	private JMenu mnConfigurar;
 	private JMenuItem mntmConfigurarDescuentos;
-	
+	private JMenuItem mntmConfigurarObsequios;
+	private JMenuItem mntmConfigurarcantidadoptima;
+	private JMenuItem mntmConfigurarCuotaDiaria;
 	
 	// Datos mínimos del primer producto
-	public static String modelo0 = "Cinza Plus";
-	public static double precio0 = 92.56;
-	public static double ancho0 = 62.0;
-	public static double largo0 = 62.0;
+	public static String modelo0  = "Cinza Plus";
+	public static double precio0  = 92.56;
+	public static double ancho0   = 62.0;
+	public static double largo0   = 62.0;
 	public static double espesor0 = 8;
-	public static int contenido0 = 6;
+	public static int contenido0  = 6;
 	// Datos mínimos del segundo producto
-	public static String modelo1 = "Luxury";
-	public static double precio1 = 42.77;
-	public static double ancho1 = 60;
-	public static double largo1 = 60;
+	public static String modelo1  = "Luxury";
+	public static double precio1  = 42.77;
+	public static double ancho1   = 60;
+	public static double largo1   = 60;
 	public static double espesor1 = 8.5;
-	public static int contenido1 = 4;
+	public static int contenido1  = 4;
 	// Datos mínimos del tercer producto
-	public static String modelo2 = "Austria";
-	public static double precio2 = 52.45;
-	public static double ancho2 = 45;
-	public static double largo2 = 45;
+	public static String modelo2  = "Austria";
+	public static double precio2  = 52.45;
+	public static double ancho2   = 45;
+	public static double largo2   = 45;
 	public static double espesor2 = 6.5;
-	public static int contenido2 = 12;
+	public static int contenido2  = 12;
 	// Datos mínimos del cuarto producto
-	public static String modelo3 = "Yungay Mix";
-	public static double precio3 = 55.89;
-	public static double ancho3 = 80;
-	public static double largo3 = 120;
+	public static String modelo3  = "Yungay Mix";
+	public static double precio3  = 55.89;
+	public static double ancho3   = 80;
+	public static double largo3   = 120;
 	public static double espesor3 = 6.8;
-	public static int contenido3 = 9;
+	public static int contenido3  = 9;
 	// Datos mínimos del quinto producto
-	public static String modelo4 = "Thalía";
-	public static double precio4 = 45;
-	public static double ancho4 = 45;
-	public static double largo4 = 11.8;
+	public static String modelo4  = "Thalía";
+	public static double precio4  = 45;
+	public static double ancho4   = 45;
+	public static double largo4   = 11.8;
 	public static double espesor4 = 7.2;
-	public static int contenido4 = 10;
+	public static int contenido4  = 10;
 	// Porcentajes de descuento
 	public static double porcentaje1 = 7.5;
 	public static double porcentaje2 = 10.0;
 	public static double porcentaje3 = 12.5;
 	public static double porcentaje4 = 15.0;
 	// Obsequio
-	public static String tipoObsequio = "Lapicero";
+	public static String tipoObsequio   = "Lapicero";
 	public static int obsequioCantidad1 = 2;
 	public static int obsequioCantidad2 = 3;
 	public static int obsequioCantidad3 = 4;
@@ -84,7 +86,6 @@ public class MiProyecto extends JFrame implements ActionListener{
 	public static int cantidadOptima = 10;
 	// Cuota diaria
 	public static double cuotaDiaria = 30000;
-	private JMenuItem mntmConfigurarObsequios;
 
 	
 	/**
@@ -158,6 +159,14 @@ public class MiProyecto extends JFrame implements ActionListener{
 		mntmConfigurarObsequios.addActionListener(this);
 		mnConfigurar.add(mntmConfigurarObsequios);
 		
+		mntmConfigurarcantidadoptima = new JMenuItem("Configurar Cantidad \u00D3ptima ");
+		mntmConfigurarcantidadoptima.addActionListener(this);
+		mnConfigurar.add(mntmConfigurarcantidadoptima);
+		
+		mntmConfigurarCuotaDiaria = new JMenuItem("Configurar Cuota Diaria");
+		mntmConfigurarCuotaDiaria.addActionListener(this);
+		mnConfigurar.add(mntmConfigurarCuotaDiaria);
+		
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -188,6 +197,12 @@ public class MiProyecto extends JFrame implements ActionListener{
 		}
 		if (arg0.getSource()==mntmConfigurarObsequios) {
 			actionPeformedMntmConfigurarObsequios(arg0);
+		}
+		if (arg0.getSource()==mntmConfigurarcantidadoptima) {
+			actionPerformedMntmConfigurarcantidadoptima(arg0);
+		}
+		if (arg0.getSource()==mntmConfigurarCuotaDiaria) {
+			actionPerformedMntmConfigurarCuotaDiaria(arg0);
 		}
 		
 	}
@@ -235,6 +250,16 @@ public class MiProyecto extends JFrame implements ActionListener{
 		DlgConfigurarObsequios dco = new DlgConfigurarObsequios();
 		dco.setLocationRelativeTo(this);
 		dco.setVisible(true);
+	}
+	protected void actionPerformedMntmConfigurarcantidadoptima(ActionEvent arg0) {
+		DlgConfigurarCantidadOptima dcco = new DlgConfigurarCantidadOptima();
+		dcco.setLocationRelativeTo(this);
+		dcco.setVisible(true);
+	}
+	protected void actionPerformedMntmConfigurarCuotaDiaria(ActionEvent arg0) {
+		DlgConfigurarCuotaDiaria dccd =new DlgConfigurarCuotaDiaria();
+		dccd.setLocationRelativeTo(this);
+		dccd.setVisible(true);
 	}
 	
 	

@@ -29,6 +29,11 @@ public class DlgConfigurarDescuentos extends JDialog implements ActionListener{
 	private JButton btnAceptar;
 	private JButton btnCancelar;
 	
+	private JLabel lblPridescuento;
+	private JLabel lblSdescuento;
+	private JLabel lblTdescuento;
+	private JLabel lblCdescuento;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -52,27 +57,23 @@ public class DlgConfigurarDescuentos extends JDialog implements ActionListener{
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		{
-			JLabel lblPdescuento = new JLabel("1 a 5 unidades");
-			lblPdescuento.setBounds(10, 22, 103, 14);
-			contentPanel.add(lblPdescuento);
-		}
-		{
-			JLabel lblSdescuento = new JLabel("6 a 10 unidades");
-			lblSdescuento.setBounds(10, 51, 103, 14);
-			contentPanel.add(lblSdescuento);
-		}
-		{
-			JLabel lblTdescuento = new JLabel("11 a 15 unidades");
-			lblTdescuento.setBounds(10, 77, 103, 14);
-			contentPanel.add(lblTdescuento);
-		}
-		{
-			JLabel lblCdescuento = new JLabel("M\u00E1s de 15 unidades");
-			lblCdescuento.setBounds(10, 107, 115, 14);
-			contentPanel.add(lblCdescuento);
-		}
-		
+	
+		lblPridescuento = new JLabel("1 a 5 unidades");
+		lblPridescuento.setBounds(10, 22, 103, 18);
+		contentPanel.add(lblPridescuento);
+
+		lblSdescuento = new JLabel("6 a 10 unidades");
+		lblSdescuento.setBounds(10, 51, 103, 14);
+		contentPanel.add(lblSdescuento);
+	
+		lblTdescuento = new JLabel("11 a 15 unidades");
+		lblTdescuento.setBounds(10, 77, 103, 14);
+		contentPanel.add(lblTdescuento);
+	
+		lblCdescuento = new JLabel("M\u00E1s de 15 unidades");
+		lblCdescuento.setBounds(10, 107, 115, 14);
+	    contentPanel.add(lblCdescuento);
+
 		txtPdescuento = new JTextField();
 		txtPdescuento.setBounds(135, 19, 86, 20);
 		contentPanel.add(txtPdescuento);
@@ -118,6 +119,8 @@ public class DlgConfigurarDescuentos extends JDialog implements ActionListener{
 		btnCancelar.addActionListener(this);
 		btnCancelar.setBounds(335, 47, 89, 23);
 		contentPanel.add(btnCancelar);
+		
+
 	}
 	public void actionPerformed (ActionEvent e) {
 		if (e.getSource()==btnAceptar) {

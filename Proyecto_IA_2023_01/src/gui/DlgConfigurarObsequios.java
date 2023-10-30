@@ -46,7 +46,7 @@ public class DlgConfigurarObsequios extends JDialog implements ActionListener{
 	 * Create the dialog.
 	 */
 	public DlgConfigurarObsequios() {
-		setTitle("Configuraci\u00F3n | Configurar Obsequios");
+		setTitle("Configurar | Configurar Obsequios");
 		setBounds(100, 100, 450, 152);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
