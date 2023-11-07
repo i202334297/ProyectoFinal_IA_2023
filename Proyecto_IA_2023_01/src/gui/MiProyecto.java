@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.event.ActionListener;
@@ -13,6 +14,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class MiProyecto extends JFrame implements ActionListener{
 
@@ -92,6 +97,12 @@ public class MiProyecto extends JFrame implements ActionListener{
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(new FlatDarkLaf());
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -108,6 +119,7 @@ public class MiProyecto extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public MiProyecto() {
+		setResizable(false); // Evita la redimensión de la ventana
 		setTitle("Proyecto_IA_2023_01 =)  :v  :)");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 769, 459);

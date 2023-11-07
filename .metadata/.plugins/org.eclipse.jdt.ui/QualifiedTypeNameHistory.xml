@@ -6,4 +6,5 @@
     <fullyQualifiedTypeName name="gui.MiProyecto"/>
     <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
     <fullyQualifiedTypeName name="java.awt.geom.FlatteningPathIterator"/>
+    <fullyQualifiedTypeName name="javax.swing.UIManager"/>
 </qualifiedTypeNameHistroy>
