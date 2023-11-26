@@ -7,5 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="E:/CLASES CIBERTEC/LABORATORIO I_A/PROYECTO FINAL/ProyectoFinal_IA_2023/flatlaf-3.2.5.jar"/>
+	<classpathentry kind="lib" path="E:/CLASES CIBERTEC/LABORATORIO I_A/PROYECTO FINAL/ProyectoFinal_IA_2023/flatlaf-intellij-themes-3.2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

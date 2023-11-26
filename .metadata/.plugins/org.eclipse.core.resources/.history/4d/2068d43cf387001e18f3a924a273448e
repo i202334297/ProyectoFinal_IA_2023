@@ -1,0 +1,128 @@
+package gui;
+
+import java.awt.BorderLayout;
+
+import javax.swing.text.AbstractDocument;
+
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Toolkit;
+
+public class DlgConfigurarDescuentos extends JDialog implements ActionListener, KeyListener{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTextField txt_1_5;
+	private JTextField txt_6_10;
+	private JTextField txt_11_15;
+	private JTextField txtmas15;
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			DlgConfigurarDescuentos dialog = new DlgConfigurarDescuentos();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public DlgConfigurarDescuentos() {
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(DlgConfigurarDescuentos.class.getResource("/imagen/Descuento.png")));
+		setTitle("Configurar | Configurar descuentos");
+		setBounds(100, 100, 450, 175);
+		getContentPane().setLayout(null);
+		
+		JLabel lbl_1_5 = new JLabel("1 a 5 unidades");
+		lbl_1_5.setBounds(10, 15, 103, 18);
+		getContentPane().add(lbl_1_5);
+		
+		JLabel lbl_5_10 = new JLabel("6 a 10 unidades");
+		lbl_5_10.setBounds(10, 44, 103, 14);
+		getContentPane().add(lbl_5_10);
+		
+		JLabel lbl_11_15 = new JLabel("11 a 15 unidades");
+		lbl_11_15.setBounds(10, 70, 103, 14);
+		getContentPane().add(lbl_11_15);
+		
+		JLabel lblMas15 = new JLabel("M\u00E1s de 15 unidades");
+		lblMas15.setBounds(10, 100, 115, 14);
+		getContentPane().add(lblMas15);
+		
+		txt_1_5 = new JTextField("7.5");
+		txt_1_5.setColumns(10);
+		txt_1_5.setBounds(135, 12, 86, 20);
+		getContentPane().add(txt_1_5);
+		
+		txt_6_10 = new JTextField();
+		txt_6_10.setColumns(10);
+		txt_6_10.setBounds(135, 41, 86, 20);
+		getContentPane().add(txt_6_10);
+		
+		txt_11_15 = new JTextField();
+		txt_11_15.setColumns(10);
+		txt_11_15.setBounds(135, 67, 86, 20);
+		getContentPane().add(txt_11_15);
+		
+		txtmas15 = new JTextField();
+		txtmas15.setColumns(10);
+		txtmas15.setBounds(135, 97, 86, 20);
+		getContentPane().add(txtmas15);
+		
+		JLabel lblPorcentaje1 = new JLabel("%");
+		lblPorcentaje1.setBounds(231, 15, 46, 14);
+		getContentPane().add(lblPorcentaje1);
+		
+		JLabel lblPorcentaje2 = new JLabel("%");
+		lblPorcentaje2.setBounds(231, 44, 46, 14);
+		getContentPane().add(lblPorcentaje2);
+		
+		JLabel lblPorcentaje3 = new JLabel("%");
+		lblPorcentaje3.setBounds(231, 70, 46, 14);
+		getContentPane().add(lblPorcentaje3);
+		
+		JLabel lblPorcentaje4 = new JLabel("%");
+		lblPorcentaje4.setBounds(231, 100, 46, 14);
+		getContentPane().add(lblPorcentaje4);
+		
+		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.setBounds(335, 11, 89, 23);
+		getContentPane().add(btnAceptar);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(335, 40, 89, 23);
+		getContentPane().add(btnCancelar);
+			}
+	public void actionPerformed (ActionEvent e) {
+	}
+	double leerReal(JTextField txt) {
+		return Double.parseDouble(txt.getText());
+	}
+	void validacion(String s, JTextField txt) {
+		mensaje("Ingrese " + s + " correcto", "Error", 0);
+		txt.setText("");
+		txt.requestFocus();
+	}
+	void mensaje(String s1, String s2, int i) {
+		JOptionPane.showMessageDialog(this, s1, s2, i);
+	}
+}

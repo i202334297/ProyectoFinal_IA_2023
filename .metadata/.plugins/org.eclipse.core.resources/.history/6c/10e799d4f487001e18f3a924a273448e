@@ -1,0 +1,179 @@
+package gui;
+
+import java.awt.BorderLayout;
+
+import javax.swing.text.AbstractDocument;
+
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Toolkit;
+
+public class DlgConfigurarDescuentos extends JDialog implements ActionListener, KeyListener{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JLabel lbl_1_5;
+	private JLabel lbl_5_10;
+	private JLabel lbl_11_15;
+	private JLabel lblMas15;
+	
+	private JTextField txt_1_5;
+	private JTextField txt_6_10;
+	private JTextField txt_11_15;
+	private JTextField txtmas15;
+	
+	private JButton btnAceptar;
+	private JButton btnCancelar;
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			DlgConfigurarDescuentos dialog = new DlgConfigurarDescuentos();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public DlgConfigurarDescuentos() {
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(DlgConfigurarDescuentos.class.getResource("/imagen/Descuento.png")));
+		setTitle("Configurar | Configurar descuentos");
+		setBounds(100, 100, 450, 175);
+		getContentPane().setLayout(null);
+		
+		lbl_1_5 = new JLabel("1 a 5 unidades");
+		lbl_1_5.setBounds(10, 15, 103, 18);
+		getContentPane().add(lbl_1_5);
+		
+		lbl_5_10 = new JLabel("6 a 10 unidades");
+		lbl_5_10.setBounds(10, 44, 103, 14);
+		getContentPane().add(lbl_5_10);
+		
+		lbl_11_15 = new JLabel("11 a 15 unidades");
+		lbl_11_15.setBounds(10, 70, 103, 14);
+		getContentPane().add(lbl_11_15);
+		
+		lblMas15 = new JLabel("M\u00E1s de 15 unidades");
+		lblMas15.setBounds(10, 100, 115, 14);
+		getContentPane().add(lblMas15);
+		
+		txt_1_5 = new JTextField();
+		txt_1_5.addKeyListener(this);
+		txt_1_5.setColumns(10);
+		txt_1_5.setBounds(135, 12, 86, 20);
+		getContentPane().add(txt_1_5);
+		
+		txt_6_10 = new JTextField();
+		txt_6_10.addKeyListener(this);
+		txt_6_10.setColumns(10);
+		txt_6_10.setBounds(135, 41, 86, 20);
+		getContentPane().add(txt_6_10);
+		
+		txt_11_15 = new JTextField();
+		txt_11_15.addKeyListener(this);
+		txt_11_15.setColumns(10);
+		txt_11_15.setBounds(135, 67, 86, 20);
+		getContentPane().add(txt_11_15);
+		
+		txtmas15 = new JTextField();
+		txtmas15.addKeyListener(this);
+		txtmas15.setColumns(10);
+		txtmas15.setBounds(135, 97, 86, 20);
+		getContentPane().add(txtmas15);
+		
+		btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(this);
+		btnAceptar.setBounds(335, 11, 89, 23);
+		getContentPane().add(btnAceptar);
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(this);
+		btnCancelar.setBounds(335, 40, 89, 23);
+		getContentPane().add(btnCancelar);
+	}
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btnAceptar) {
+			actionPerformedBtnAceptar(e);
+		}
+		if(e.getSource()==btnCancelar) {
+			actionPerformedBtnCancelar(e);
+		}
+	}
+	
+	protected void actionPerformedBtnAceptar (ActionEvent e) {
+		double porc1 = leerReal(txt_1_5);
+		double porc2 = leerReal(txt_6_10);
+		double porc3 = leerReal(txt_11_15);
+		double porc4 = leerReal(txtmas15);
+		MiProyecto.porcentaje1 = porc1;
+		MiProyecto.porcentaje2 = porc2;
+		MiProyecto.porcentaje3 = porc3;
+		MiProyecto.porcentaje4 = porc4;
+		mensaje("Descuentos guardados con Éxito", "Guardar configuración", 1);
+		dispose();
+	}
+	protected void actionPerformedBtnCancelar(ActionEvent e) {
+		dispose();
+	}
+
+	double leerReal(JTextField txt) {
+		return Double.parseDouble(txt.getText());
+	}
+	void validacion(String s, JTextField txt) {
+		mensaje("Ingrese " + s + " correcto", "Error", 0);
+		txt.setText("");
+		txt.requestFocus();
+	}
+	void mensaje(String s1, String s2, int i) {
+		JOptionPane.showMessageDialog(this, s1, s2, i);
+	}
+	public void keyPressed(KeyEvent e) {
+		
+	}
+	public void keyReleased(KeyEvent e) {
+		
+		validarCampos();
+	}
+	
+	public void keyTyped(KeyEvent e) {
+		
+		Character c = e.getKeyChar();
+
+		if (!Character.isDigit(c) && !c.equals('.')) {
+			e.consume();
+		}
+	}
+	public void validarCampos() {
+
+		JTextField elementos[] = { txt_1_5, txt_6_10, txt_11_15, txtmas15 };
+		String valor;
+		for (int i = 0; i < elementos.length; i++) {
+			valor = elementos[i].getText().trim();
+			if (valor.length() == 0) {
+				btnAceptar.setEnabled(false);
+				return;
+			}
+		}
+		btnAceptar.setEnabled(true);
+	}
+
+}

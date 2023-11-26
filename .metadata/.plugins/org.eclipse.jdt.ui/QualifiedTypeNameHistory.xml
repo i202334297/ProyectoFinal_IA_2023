@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.awt.Event"/>
-    <fullyQualifiedTypeName name="java.awt.event.ActionEvent"/>
-    <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
-    <fullyQualifiedTypeName name="gui.MiProyecto"/>
+    <fullyQualifiedTypeName name="com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme"/>
+    <fullyQualifiedTypeName name="com.formdev.flatlaf.FlatDarkLaf"/>
+    <fullyQualifiedTypeName name="com.formdev.flatlaf.intellijthemes.FlatArcOrangeIJTheme"/>
+    <fullyQualifiedTypeName name="com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme"/>
+    <fullyQualifiedTypeName name="com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme"/>
+    <fullyQualifiedTypeName name="com.formdev.flatlaf.intellijthemes.FlatCarbonIJTheme"/>
     <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
-    <fullyQualifiedTypeName name="java.awt.geom.FlatteningPathIterator"/>
-    <fullyQualifiedTypeName name="javax.swing.UIManager"/>
+    <fullyQualifiedTypeName name="java.awt.EventQueue"/>
+    <fullyQualifiedTypeName name="java.awt.event.KeyEvent"/>
+    <fullyQualifiedTypeName name="java.awt.event.KeyListener"/>
+    <fullyQualifiedTypeName name="javax.swing.JTextField"/>
+    <fullyQualifiedTypeName name="gui.MiProyecto"/>
+    <fullyQualifiedTypeName name="com.formdev.flatlaf.intellijthemes.FlatCobalt2IJTheme"/>
+    <fullyQualifiedTypeName name="com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatNightOwlIJTheme"/>
+    <fullyQualifiedTypeName name="com.formdev.flatlaf.themes.FlatMacDarkLaf"/>
 </qualifiedTypeNameHistroy>

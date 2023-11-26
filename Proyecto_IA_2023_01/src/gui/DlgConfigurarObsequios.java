@@ -7,10 +7,16 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Toolkit;
+
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class DlgConfigurarObsequios extends JDialog implements ActionListener{
 
@@ -46,6 +52,8 @@ public class DlgConfigurarObsequios extends JDialog implements ActionListener{
 	 * Create the dialog.
 	 */
 	public DlgConfigurarObsequios() {
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(DlgConfigurarObsequios.class.getResource("/imagen/DlgObs.png")));
 		setTitle("Configurar | Configurar Obsequios");
 		setBounds(100, 100, 450, 152);
 		getContentPane().setLayout(new BorderLayout());
@@ -53,70 +61,149 @@ public class DlgConfigurarObsequios extends JDialog implements ActionListener{
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
-			lblTipodeobsequio = new JLabel("Tipo de obsequio");
-			lblTipodeobsequio.setBounds(10, 11, 110, 14);
-			contentPanel.add(lblTipodeobsequio);
+		lblTipodeobsequio = new JLabel("Tipo de obsequio");
+		lblTipodeobsequio.setBounds(10, 11, 110, 14);
+		contentPanel.add(lblTipodeobsequio);
 	
-			lbl1a5unidades = new JLabel("1 a 5 unidades");
-			lbl1a5unidades.setBounds(10, 36, 110, 14);
-			contentPanel.add(lbl1a5unidades);
+		lbl1a5unidades = new JLabel("1 a 5 unidades");
+		lbl1a5unidades.setBounds(10, 36, 110, 14);
+		contentPanel.add(lbl1a5unidades);
 		
-			lbl6a10unidades = new JLabel("6 a 10 unidades");
-			lbl6a10unidades.setBounds(10, 61, 110, 14);
-			contentPanel.add(lbl6a10unidades);
+		lbl6a10unidades = new JLabel("6 a 10 unidades");
+		lbl6a10unidades.setBounds(10, 61, 110, 14);
+		contentPanel.add(lbl6a10unidades);
 	
-			lbl11amasunidades = new JLabel("11 a m\u00E1s unidades");
-			lbl11amasunidades.setBounds(10, 86, 110, 14);
-			contentPanel.add(lbl11amasunidades);
+		lbl11amasunidades = new JLabel("11 a m\u00E1s unidades");
+		lbl11amasunidades.setBounds(10, 86, 110, 14);
+		contentPanel.add(lbl11amasunidades);
 			
-			txtTipodeObsequio = new JTextField();
-			txtTipodeObsequio.setBounds(146, 8, 86, 20);
-			contentPanel.add(txtTipodeObsequio);
-			txtTipodeObsequio.setColumns(10);
+		txtTipodeObsequio = new JTextField(MiProyecto.tipoObsequio);
+		txtTipodeObsequio.setBounds(146, 8, 86, 20);
+		contentPanel.add(txtTipodeObsequio);
+		txtTipodeObsequio.setColumns(10);
 		
-			txtUnidades1 = new JTextField();
-			txtUnidades1.setColumns(10);
-			txtUnidades1.setBounds(146, 33, 86, 20);
-			contentPanel.add(txtUnidades1);
+		txtUnidades1 = new JTextField(MiProyecto.obsequioCantidad1 + "");
+		txtUnidades1.setColumns(10);
+		txtUnidades1.setBounds(146, 33, 86, 20);
+		contentPanel.add(txtUnidades1);
 	
-			txtUnidades2 = new JTextField();
-			txtUnidades2.setColumns(10);
-			txtUnidades2.setBounds(146, 58, 86, 20);
-			contentPanel.add(txtUnidades2);
+		txtUnidades2 = new JTextField(MiProyecto.obsequioCantidad2 + "");
+		txtUnidades2.setColumns(10);
+		txtUnidades2.setBounds(146, 58, 86, 20);
+		contentPanel.add(txtUnidades2);
 		
-			txtUnidades3 = new JTextField();
-			txtUnidades3.setColumns(10);
-			txtUnidades3.setBounds(146, 83, 86, 20);
-			contentPanel.add(txtUnidades3);
+		txtUnidades3 = new JTextField(MiProyecto.obsequioCantidad3 + "");
+		txtUnidades3.setColumns(10);
+		txtUnidades3.setBounds(146, 83, 86, 20);
+		contentPanel.add(txtUnidades3);
 		
-			btnAceptar = new JButton("Aceptar");
-			btnAceptar.addActionListener(this);
-			btnAceptar.setBounds(335, 7, 89, 23);
-			contentPanel.add(btnAceptar);
+		btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(this);
+		btnAceptar.setBounds(335, 7, 89, 23);
+		contentPanel.add(btnAceptar);
 	
-			btnCancelar = new JButton("Cancelar");
-			btnCancelar.addActionListener(this);
-			btnCancelar.setBounds(335, 32, 89, 23);
-			contentPanel.add(btnCancelar);
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(this);
+		btnCancelar.setBounds(335, 32, 89, 23);
+		contentPanel.add(btnCancelar);
+		
+		
+		
+		txtTipodeObsequio.addKeyListener(new StringKeyListener());
+			
+	    txtUnidades1.addKeyListener(new NumericKeyListener());
+	    txtUnidades2.addKeyListener(new NumericKeyListener());
+	    txtUnidades3.addKeyListener(new NumericKeyListener());
 	}
-		public void actionPerformed(ActionEvent e) {
-			
-			if (e.getSource()==btnAceptar) {
-				actionPerformedBtnAceptar(e);
+	
+	private class NumericKeyListener implements KeyListener {
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            // Permitir solo caracteres numéricos
+            if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                e.consume(); // Consumir el evento para evitar la entrada no deseada
+            }
+        }
+        
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                // Llama al método que realiza el cálculo cuando se presiona Enter
+            	actionPerformedBtnAceptar(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+            }
+        }
+
+        public void keyReleased(KeyEvent e) {
+        	validarCampos();
+        }
+    }
+	
+	
+	
+	private class StringKeyListener implements KeyListener{
+	    public void keyTyped(KeyEvent e) {
+	        char c = e.getKeyChar();
+	        // Permitir solo letras
+	        if (!(Character.isLetter(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+	            e.consume(); // Consumir el evento para evitar la entrada no deseada
+	        }
+	    }
+	    
+	    public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                // Llama al método que realiza el cálculo cuando se presiona Enter
+            	actionPerformedBtnAceptar(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+            }
+	    }
+	    
+	    public void keyReleased(KeyEvent e) {
+	    	validarCampos();
+	    }
+	}
+	public void validarCampos() {
+
+		JTextField elementos[] = { txtTipodeObsequio, txtUnidades1, txtUnidades2, txtUnidades3 };
+		String valor;
+		for (int i = 0; i < elementos.length; i++) {
+			valor = elementos[i].getText().trim();
+			if (valor.length() == 0) {
+				btnAceptar.setEnabled(false);
+				return;
 			}
-			if (e.getSource()==btnCancelar) {
-				actionPerformedBtnCancelar(e);
-			}
+		}
+		btnAceptar.setEnabled(true);
+	}
+
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource()==btnAceptar) {
+			actionPerformedBtnAceptar(e);
+		}
+		if (e.getSource()==btnCancelar) {
+			actionPerformedBtnCancelar(e);
+		}
+
+	}
+	protected void actionPerformedBtnAceptar(ActionEvent e) {
+		MiProyecto.tipoObsequio = txtTipodeObsequio.getText();
+		int unidad1 = leerEntero(txtUnidades1);
+		int unidad2 = leerEntero(txtUnidades2);
+		int unidad3 = leerEntero(txtUnidades3);
 		
-			
-		}
-		protected void actionPerformedBtnAceptar(ActionEvent e) {
-			
-			
-		}
-		protected void actionPerformedBtnCancelar(ActionEvent e) {
-			
-			dispose ();
-			
-		}
+	    MiProyecto.obsequioCantidad1 = unidad1;
+	    MiProyecto.obsequioCantidad2 = unidad2;
+	    MiProyecto.obsequioCantidad3 = unidad3;
+		mensaje("Obsequio guardado con Éxito", "Guardar Obsequio", 1);
+		dispose();
+	  
+	}
+	void mensaje(String s1, String s2, int i) {
+		JOptionPane.showMessageDialog(this, s1, s2, i);
+	}
+	
+	protected void actionPerformedBtnCancelar(ActionEvent e) {	
+		dispose ();	
+	}
+	int leerEntero(JTextField txt) {
+		return Integer.parseInt(txt.getText());
+	}
 }

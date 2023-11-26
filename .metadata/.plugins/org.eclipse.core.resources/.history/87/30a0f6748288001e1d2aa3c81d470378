@@ -1,0 +1,121 @@
+package gui;
+
+
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import java.awt.Toolkit;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+public class DlgConfigurarCuotaDiaria extends JDialog implements ActionListener{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final JPanel contentPanel = new JPanel();
+	private JTextField txtCuota;
+	private JLabel lblCuota;
+	private JButton btnAceptar;
+	private JButton btnCancelar;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			DlgConfigurarCuotaDiaria dialog = new DlgConfigurarCuotaDiaria();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public DlgConfigurarCuotaDiaria() {
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(DlgConfigurarCuotaDiaria.class.getResource("/imagen/DlgCuota.png")));
+		setTitle("Configurar | Configurar Cuota Diaria ");
+		setBounds(100, 100, 450, 114);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		
+		lblCuota = new JLabel("Cuota diaria esperada (S/.)");
+		lblCuota.setBounds(10, 11, 169, 19);
+		contentPanel.add(lblCuota);
+		
+		txtCuota = new JTextField(MiProyecto.cuotaDiaria + "");
+		txtCuota.setBounds(189, 10, 86, 20);
+		contentPanel.add(txtCuota);
+		txtCuota.setColumns(10);
+		
+		btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(this);
+		btnAceptar.setBounds(335, 9, 89, 23);
+		contentPanel.add(btnAceptar);
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(this);
+		btnCancelar.setBounds(335, 43, 89, 23);
+		contentPanel.add(btnCancelar);
+		
+		txtCuota.addKeyListener(new NumericKeyListener());
+	}
+	
+	/*SOLO NUMEROS STARD*/
+	private class NumericKeyListener implements KeyListener {
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            // Permitir solo caracteres numéricos
+            if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                e.consume(); // Consumir el evento para evitar la entrada no deseada
+            }
+        }
+        public void keyPressed(KeyEvent e) {
+            // No necesitamos implementar este método
+        }
+
+        public void keyReleased(KeyEvent e) {
+            // No necesitamos implementar este método
+        }
+    }
+	/*SOLO NUMEROS END*/
+	
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btnAceptar) {
+			actionPerformedBtnAceptar(e);
+		}
+		if(e.getSource()==btnCancelar) {
+			actionPerformedBtnCancelar(e);
+		}
+	}
+	protected void actionPerformedBtnAceptar(ActionEvent e) {
+			double cuota = leerReal(txtCuota);
+			MiProyecto.cuotaDiaria = cuota;
+			
+			mensaje("Descuentos guardados con Éxito", "Guardar configuración", 1);
+			dispose();
+	}
+	double leerReal(JTextField txt) {
+		return Double.parseDouble(txt.getText());
+	}
+	protected void actionPerformedBtnCancelar(ActionEvent e) {
+		dispose();
+	}
+
+}

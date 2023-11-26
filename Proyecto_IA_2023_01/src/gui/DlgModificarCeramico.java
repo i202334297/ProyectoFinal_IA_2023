@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
@@ -15,6 +16,11 @@ import javax.swing.JTextField;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+
+import java.awt.Toolkit;
 
 public class DlgModificarCeramico extends JDialog implements ActionListener{
 
@@ -59,7 +65,9 @@ public class DlgModificarCeramico extends JDialog implements ActionListener{
 	 */
 	public DlgModificarCeramico() {
 		setResizable(false);
-		setTitle("Mantenimiento | Consultar Cer\u00E1mico");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(DlgModificarCeramico.class.getResource("/imagen/DlgModificar.png")));
+		setResizable(false);
+		setTitle("Mantenimiento | Modificar Cer\u00E1mico");
 		setBounds(100, 100, 496, 255);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -131,7 +139,65 @@ public class DlgModificarCeramico extends JDialog implements ActionListener{
 		btnGrabar.addActionListener(this);
 		btnGrabar.setBounds(381, 19, 89, 23);
 		contentPanel.add(btnGrabar);
+		
+		txtContenido.addKeyListener(new NumEnteroKeyListener());
+		
+		
+		txtPrecio.addKeyListener(new NumericKeyListener());
+		txtAncho.addKeyListener(new NumericKeyListener());
+		txtLargo.addKeyListener(new NumericKeyListener());
+		txtEspesor.addKeyListener(new NumericKeyListener());
 	}
+	private class NumericKeyListener implements KeyListener {
+    	public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                // Llama al método que realiza el cálculo cuando se presiona Enter
+                actionPerformedBtnGrabar(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+            }
+    		
+    	}
+    	public void keyReleased(KeyEvent e) {
+    		validarCampos();
+    	}
+    	public void keyTyped(KeyEvent e) {
+    		
+    		Character c = e.getKeyChar();
+    		JTextField textField = (JTextField) e.getSource();
+
+    		if (!Character.isDigit(c) && !c.equals('.')) {e.consume();}
+    		else if (c == '.' && textField.getText().contains(".")) {e.consume();}	
+    	}
+    	public void validarCampos() {
+
+    		JTextField elementos[] = { txtPrecio, txtAncho, txtLargo, txtEspesor };
+    		String valor;
+    		for (int i = 0; i < elementos.length; i++) {
+    			valor = elementos[i].getText().trim();
+    			if (valor.length() == 0) {
+    				btnGrabar.setEnabled(false);
+    				return;
+    			}
+    		}
+    		btnGrabar.setEnabled(true);
+    	}
+    }
+	
+	private class NumEnteroKeyListener implements KeyListener {
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            // Permitir solo caracteres numéricos
+            if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                e.consume(); // Consumir el evento para evitar la entrada no deseada
+            }
+        }
+        public void keyPressed(KeyEvent e) {
+            // Cuando presionamos la tecla
+        }
+
+        public void keyReleased(KeyEvent e) {
+            // Cuando soltamos la tecla
+        }
+    }
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnCerrar) {
 			actionPerformedBtnCerrar(e);
@@ -184,94 +250,56 @@ public class DlgModificarCeramico extends JDialog implements ActionListener{
 				txtLargo.setText(MiProyecto.largo4 + "");
 				txtEspesor.setText(MiProyecto.espesor4 + "");
 				txtContenido.setText(MiProyecto.contenido4 + "");
-		}
-		
-		
-		
+		}	
 	}
 	protected void actionPerformedBtnGrabar(ActionEvent e) {
+	    double precio = leerReal(txtPrecio);
+	    double ancho = leerReal(txtAncho);
+	    double largo = leerReal(txtLargo);
+	    double espesor = leerReal(txtEspesor);
+	    int contenido = leerEntero(txtContenido);
+	    int selectedMarca = cboMarca.getSelectedIndex();
 
-		try {
-			double precio = leerReal(txtPrecio);
-			double ancho = leerReal (txtAncho);
-			double largo = leerReal (txtLargo);
-			double espesor = leerReal (txtEspesor);
-			int contenido = Integer.parseInt(txtContenido.getText());
-
-			
-//	        double precio    = 0; //= leerReal(txtPrecio);
-//	        double ancho     = 0;
-//	        double largo     = 0;
-//	        double espesor   = 0;
-//	        int    contenido = 0; // Cambiado a leerEntero
-	        
-	        
-	        int selectedMarca = cboMarca.getSelectedIndex();
-
-	        if(!soloDecimal(txtPrecio.getText())) {	        	
-	        	validacion("PRECIO",txtPrecio);
-	        }
-	        else if(!soloDecimal(txtAncho.getText())) {	        	
-	        	validacion("ANCHO",txtAncho);
-	        }
-	        else if(!soloDecimal(txtLargo.getText())) {	        	
-	        	validacion("LARGO",txtLargo);
-	        }
-	        else if(!soloDecimal(txtEspesor.getText())) {	        	
-	        	validacion("ESPESOR",txtEspesor);
-	        }
-	        else if(!soloEntero(txtContenido.getText())) {	        	
-	        	validacion("CONTENIDO",txtContenido);
-	        }
-	        else {	        	
-	        	switch (selectedMarca) {
-		            case 0:
-		                MiProyecto.precio0 = precio;
-		                MiProyecto.ancho0 = ancho;
-		                MiProyecto.largo0 = largo;
-		                MiProyecto.espesor0 = espesor;
-		                MiProyecto.contenido0 = contenido;
-		                break;
-		            case 1:
-		                MiProyecto.precio1 = precio;
-		                MiProyecto.ancho1 = ancho;
-		                MiProyecto.largo1 = largo;
-		                MiProyecto.espesor1 = espesor;
-		                MiProyecto.contenido1 = contenido;
-		                break;
-		            case 2:
-		                MiProyecto.precio2 = precio;
-		                MiProyecto.ancho2 = ancho;
-		                MiProyecto.largo2 = largo;
-		                MiProyecto.espesor2 = espesor;
-		                MiProyecto.contenido2 = contenido;
-		                break;
-		            case 3:
-		                MiProyecto.precio3 = precio;
-		                MiProyecto.ancho3 = ancho;
-		                MiProyecto.largo3 = largo;
-		                MiProyecto.espesor3 = espesor;
-		                MiProyecto.contenido3 = contenido;
-		                break;
-		            default:
-		                MiProyecto.precio4 = precio;
-		                MiProyecto.ancho4 = ancho;
-		                MiProyecto.largo4 = largo;
-		                MiProyecto.espesor4 = espesor;
-		                MiProyecto.contenido4 = contenido;
-		        }
-
-	        	mensaje("Datos guardados con éxito", "Datos modificados", 1);
-	        }	        	       
-	    } 
-		catch (Exception x) 
-		{
-	    	mensaje(x.getMessage(), "Error", 0);
+	    switch (selectedMarca) {
+	        case 0:
+	            MiProyecto.precio0 = precio;
+	            MiProyecto.ancho0 = ancho;
+	            MiProyecto.largo0 = largo;
+	            MiProyecto.espesor0 = espesor;
+	            MiProyecto.contenido0 = contenido;
+	            break;
+	        case 1:
+	            MiProyecto.precio1 = precio;
+	            MiProyecto.ancho1 = ancho;
+	            MiProyecto.largo1 = largo;
+	            MiProyecto.espesor1 = espesor;
+	            MiProyecto.contenido1 = contenido;
+	            break;
+	        case 2:
+	            MiProyecto.precio2 = precio;
+	            MiProyecto.ancho2 = ancho;
+	            MiProyecto.largo2 = largo;
+	            MiProyecto.espesor2 = espesor;
+	            MiProyecto.contenido2 = contenido;
+	            break;
+	        case 3:
+	            MiProyecto.precio3 = precio;
+	            MiProyecto.ancho3 = ancho;
+	            MiProyecto.largo3 = largo;
+	            MiProyecto.espesor3 = espesor;
+	            MiProyecto.contenido3 = contenido;
+	            break;
+	        default:
+	            MiProyecto.precio4 = precio;
+	            MiProyecto.ancho4 = ancho;
+	            MiProyecto.largo4 = largo;
+	            MiProyecto.espesor4 = espesor;
+	            MiProyecto.contenido4 = contenido;
 	    }
-	}
 
-	
-	
+	    mensaje("Datos guardados con éxito", "Datos modificados", 1);
+	    dispose();
+	}
 
 	protected void actionPerformedBtnCerrar(ActionEvent e) {
 		
@@ -279,29 +307,17 @@ public class DlgModificarCeramico extends JDialog implements ActionListener{
 		
 	}
 	
-	//  Métodos tipo void (con parámetros)
-	void validacion(String s, JTextField txt) {
-		mensaje("Ingrese " + s + " correcto", "Error", 0);
-		txt.setText("");
-		txt.requestFocus();		
-	}
 	void mensaje(String s1, String s2, int i) {
 		JOptionPane.showMessageDialog(this, s1, s2, i);
 	}
 	//  Métodos que retornan valor (con parámetros)
-	String leerCadena(JTextField txt) {
-		return txt.getText();
-	}
+
 	double leerReal(JTextField txt) {
 		return Double.parseDouble(txt.getText());
 	}
 	
-	boolean soloDecimal(String valor) {
-		return valor.matches("^[0-9999]+(\\.[0-9]+){0,3}$");		
-	}
-	
-	boolean soloEntero(String valor) {
-		return valor.matches("^[0-9999]{1,3}$");		
+	int leerEntero(JTextField txt) {
+		return  Integer.parseInt(txt.getText());
 	}
 	
 }

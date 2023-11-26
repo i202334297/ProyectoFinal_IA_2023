@@ -1,0 +1,152 @@
+package gui;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Toolkit;
+
+public class DlgConfigurarDescuentos extends JDialog implements ActionListener{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final JPanel contentPanel = new JPanel();
+	private JTextField txt_1_5;
+	private JTextField txt_6_10;
+	private JTextField txt_11_15;
+	private JTextField txt_mas15;
+	private JLabel lblPorcentaje1;
+	private JLabel lblPorcentaje2;
+	private JLabel lblPorcentaje3;
+	private JLabel lblPorcentaje4;
+	private JButton btnAceptar;
+	private JButton btnCancelar;
+	
+	private JLabel lblPridescuento;
+	private JLabel lblSdescuento;
+	private JLabel lblTdescuento;
+	private JLabel lblCdescuento;
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			DlgConfigurarDescuentos dialog = new DlgConfigurarDescuentos();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public DlgConfigurarDescuentos() {
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(DlgConfigurarDescuentos.class.getResource("/imagen/Descuento.png")));
+		setTitle("Configurar | Configurar descuentos");
+		setBounds(100, 100, 450, 175);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+	
+		lblPridescuento = new JLabel("1 a 5 unidades");
+		lblPridescuento.setBounds(10, 22, 103, 18);
+		contentPanel.add(lblPridescuento);
+
+		lblSdescuento = new JLabel("6 a 10 unidades");
+		lblSdescuento.setBounds(10, 51, 103, 14);
+		contentPanel.add(lblSdescuento);
+	
+		lblTdescuento = new JLabel("11 a 15 unidades");
+		lblTdescuento.setBounds(10, 77, 103, 14);
+		contentPanel.add(lblTdescuento);
+	
+		lblCdescuento = new JLabel("M\u00E1s de 15 unidades");
+		lblCdescuento.setBounds(10, 107, 115, 14);
+	    contentPanel.add(lblCdescuento);
+
+		txt_1_5 = new JTextField();
+		txt_1_5.setBounds(135, 19, 86, 20);
+		contentPanel.add(txt_1_5);
+		txt_1_5.setColumns(10);
+		
+		txt_6_10 = new JTextField();
+		txt_6_10.setColumns(10);
+		txt_6_10.setBounds(135, 48, 86, 20);
+		contentPanel.add(txt_6_10);
+		
+		txt_11_15 = new JTextField();
+		txt_11_15.setColumns(10);
+		txt_11_15.setBounds(135, 74, 86, 20);
+		contentPanel.add(txt_11_15);
+		
+		txt_mas15 = new JTextField();
+		txt_mas15.setColumns(10);
+		txt_mas15.setBounds(135, 104, 86, 20);
+		contentPanel.add(txt_mas15);
+		
+		lblPorcentaje1 = new JLabel("%");
+		lblPorcentaje1.setBounds(231, 22, 46, 14);
+		contentPanel.add(lblPorcentaje1);
+		
+		lblPorcentaje2 = new JLabel("%");
+		lblPorcentaje2.setBounds(231, 51, 46, 14);
+		contentPanel.add(lblPorcentaje2);
+		
+		lblPorcentaje3 = new JLabel("%");
+		lblPorcentaje3.setBounds(231, 77, 46, 14);
+		contentPanel.add(lblPorcentaje3);
+		
+		lblPorcentaje4 = new JLabel("%");
+		lblPorcentaje4.setBounds(231, 107, 46, 14);
+		contentPanel.add(lblPorcentaje4);
+		
+		btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(this);
+		btnAceptar.setBounds(335, 18, 89, 23);
+		contentPanel.add(btnAceptar);
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(this);
+		btnCancelar.setBounds(335, 47, 89, 23);
+		contentPanel.add(btnCancelar);
+			}
+	public void actionPerformed (ActionEvent e) {
+		if (e.getSource()==btnAceptar) {
+			actionPerformedBtnAceptar(e);
+		}
+		if (e.getSource()==btnCancelar) {
+		actionPerformedBtnCancelar(e);
+		}
+	}
+	protected void actionPerformedBtnAceptar(ActionEvent e) {
+		double porc1 = leerReal(txt_1_5);
+		double porc2 = leerReal(txt_6_10);
+		double porc3 = leerReal(txt_11_15);
+		double porc4 = leerReal(txt_mas15);
+		
+		MiProyecto.porcentaje1 = porc1;
+		MiProyecto.porcentaje2 = porc2;
+		MiProyecto.porcentaje3 = porc3;
+		MiProyecto.porcentaje4 = porc4;
+		
+	}
+	protected void actionPerformedBtnCancelar(ActionEvent e) {
+		dispose();
+	}
+	double leerReal(JTextField txt) {
+		return Double.parseDouble(txt.getText());
+	}
+}

@@ -1,15 +1,17 @@
 package gui;
 
-import java.awt.BorderLayout;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Toolkit;
 
 public class DlgConfigurarDescuentos extends JDialog implements ActionListener{
 
@@ -17,22 +19,18 @@ public class DlgConfigurarDescuentos extends JDialog implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JPanel contentPanel = new JPanel();
-	private JTextField txtPdescuento;
-	private JTextField txtSdescuento;
-	private JTextField txtTdescuento;
-	private JTextField txtCdescuento;
-	private JLabel lblPorcentaje1;
-	private JLabel lblPorcentaje2;
-	private JLabel lblPorcentaje3;
-	private JLabel lblPorcentaje4;
+	private JLabel lbl_1_5;
+	private JLabel lbl_5_10;
+	private JLabel lbl_11_15;
+	private JLabel lblMas15;
+	
+	private JTextField txt_1_5;
+	private JTextField txt_6_10;
+	private JTextField txt_11_15;
+	private JTextField txtmas15;
+	
 	private JButton btnAceptar;
 	private JButton btnCancelar;
-	
-	private JLabel lblPridescuento;
-	private JLabel lblSdescuento;
-	private JLabel lblTdescuento;
-	private JLabel lblCdescuento;
 	
 	/**
 	 * Launch the application.
@@ -51,90 +49,135 @@ public class DlgConfigurarDescuentos extends JDialog implements ActionListener{
 	 * Create the dialog.
 	 */
 	public DlgConfigurarDescuentos() {
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(DlgConfigurarDescuentos.class.getResource("/imagen/Descuento.png")));
 		setTitle("Configurar | Configurar descuentos");
 		setBounds(100, 100, 450, 175);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
-	
-		lblPridescuento = new JLabel("1 a 5 unidades");
-		lblPridescuento.setBounds(10, 22, 103, 18);
-		contentPanel.add(lblPridescuento);
-
-		lblSdescuento = new JLabel("6 a 10 unidades");
-		lblSdescuento.setBounds(10, 51, 103, 14);
-		contentPanel.add(lblSdescuento);
-	
-		lblTdescuento = new JLabel("11 a 15 unidades");
-		lblTdescuento.setBounds(10, 77, 103, 14);
-		contentPanel.add(lblTdescuento);
-	
-		lblCdescuento = new JLabel("M\u00E1s de 15 unidades");
-		lblCdescuento.setBounds(10, 107, 115, 14);
-	    contentPanel.add(lblCdescuento);
-
-		txtPdescuento = new JTextField();
-		txtPdescuento.setBounds(135, 19, 86, 20);
-		contentPanel.add(txtPdescuento);
-		txtPdescuento.setColumns(10);
+		getContentPane().setLayout(null);
 		
-		txtSdescuento = new JTextField();
-		txtSdescuento.setColumns(10);
-		txtSdescuento.setBounds(135, 48, 86, 20);
-		contentPanel.add(txtSdescuento);
+		lbl_1_5 = new JLabel("1 a 5 unidades");
+		lbl_1_5.setBounds(10, 15, 103, 18);
+		getContentPane().add(lbl_1_5);
 		
-		txtTdescuento = new JTextField();
-		txtTdescuento.setColumns(10);
-		txtTdescuento.setBounds(135, 74, 86, 20);
-		contentPanel.add(txtTdescuento);
+		lbl_5_10 = new JLabel("6 a 10 unidades");
+		lbl_5_10.setBounds(10, 44, 103, 14);
+		getContentPane().add(lbl_5_10);
 		
-		txtCdescuento = new JTextField();
-		txtCdescuento.setColumns(10);
-		txtCdescuento.setBounds(135, 104, 86, 20);
-		contentPanel.add(txtCdescuento);
+		lbl_11_15 = new JLabel("11 a 15 unidades");
+		lbl_11_15.setBounds(10, 70, 103, 14);
+		getContentPane().add(lbl_11_15);
 		
-		lblPorcentaje1 = new JLabel("%");
-		lblPorcentaje1.setBounds(231, 22, 46, 14);
-		contentPanel.add(lblPorcentaje1);
+		lblMas15 = new JLabel("M\u00E1s de 15 unidades");
+		lblMas15.setBounds(10, 100, 115, 14);
+		getContentPane().add(lblMas15);
 		
-		lblPorcentaje2 = new JLabel("%");
-		lblPorcentaje2.setBounds(231, 51, 46, 14);
-		contentPanel.add(lblPorcentaje2);
+		txt_1_5 = new JTextField(MiProyecto.porcentaje1 + "");
+		txt_1_5.setColumns(10);
+		txt_1_5.setBounds(135, 12, 86, 20);
+		getContentPane().add(txt_1_5);
 		
-		lblPorcentaje3 = new JLabel("%");
-		lblPorcentaje3.setBounds(231, 77, 46, 14);
-		contentPanel.add(lblPorcentaje3);
+		txt_6_10 = new JTextField(MiProyecto.porcentaje2 + "");
+		txt_6_10.setColumns(10);
+		txt_6_10.setBounds(135, 41, 86, 20);
+		getContentPane().add(txt_6_10);
 		
-		lblPorcentaje4 = new JLabel("%");
-		lblPorcentaje4.setBounds(231, 107, 46, 14);
-		contentPanel.add(lblPorcentaje4);
+		txt_11_15 = new JTextField(MiProyecto.porcentaje3 + "");
+		txt_11_15.setColumns(10);
+		txt_11_15.setBounds(135, 67, 86, 20);
+		getContentPane().add(txt_11_15);
+		
+		txtmas15 = new JTextField(MiProyecto.porcentaje4 + "");
+		txtmas15.setColumns(10);
+		txtmas15.setBounds(135, 97, 86, 20);
+		getContentPane().add(txtmas15);
 		
 		btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(this);
-		btnAceptar.setBounds(335, 18, 89, 23);
-		contentPanel.add(btnAceptar);
+		btnAceptar.setBounds(335, 11, 89, 23);
+		getContentPane().add(btnAceptar);
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(this);
-		btnCancelar.setBounds(335, 47, 89, 23);
-		contentPanel.add(btnCancelar);
+		btnCancelar.setBounds(335, 40, 89, 23);
+		getContentPane().add(btnCancelar);
 		
-
+		
+		
+		txt_1_5.addKeyListener(new NumericKeyListener());
+		txt_6_10.addKeyListener(new NumericKeyListener());
+		txt_11_15.addKeyListener(new NumericKeyListener());
+		txtmas15.addKeyListener(new NumericKeyListener());
 	}
-	public void actionPerformed (ActionEvent e) {
-		if (e.getSource()==btnAceptar) {
+    private class NumericKeyListener implements KeyListener {
+    	public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                // Llama al método que realiza el cálculo cuando se presiona Enter
+            	actionPerformedBtnAceptar(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+            }
+    	}
+    	
+    	public void keyReleased(KeyEvent e) {
+    		validarCampos();
+    	}
+    	
+    	public void keyTyped(KeyEvent e) {
+    		
+    		Character c = e.getKeyChar();
+    		JTextField textField = (JTextField) e.getSource();
+
+    		if (!Character.isDigit(c) && !c.equals('.')) {e.consume();}
+    		else if (c == '.' && textField.getText().contains(".")) {e.consume();}
+    		
+    		
+    	}
+    	
+    	public void validarCampos() {
+
+    		JTextField elementos[] = { txt_1_5, txt_6_10, txt_11_15, txtmas15 };
+    		String valor;
+    		for (int i = 0; i < elementos.length; i++) {
+    			valor = elementos[i].getText().trim();
+    			if (valor.length() == 0) {
+    				btnAceptar.setEnabled(false);
+    				return;
+    			}
+    		}
+    		btnAceptar.setEnabled(true);
+    	}
+    }
+
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btnAceptar) {
 			actionPerformedBtnAceptar(e);
 		}
-		if (e.getSource()==btnCancelar) {
-		actionPerformedBtnCancelar(e);
+		if(e.getSource()==btnCancelar) {
+			actionPerformedBtnCancelar(e);
 		}
 	}
-	protected void actionPerformedBtnAceptar(ActionEvent e) {
-		
+	
+	protected void actionPerformedBtnAceptar (ActionEvent e) {
+		double porc1 = leerReal(txt_1_5);
+		double porc2 = leerReal(txt_6_10);
+		double porc3 = leerReal(txt_11_15);
+		double porc4 = leerReal(txtmas15);
+		MiProyecto.porcentaje1 = porc1;
+		MiProyecto.porcentaje2 = porc2;
+		MiProyecto.porcentaje3 = porc3;
+		MiProyecto.porcentaje4 = porc4;
+		mensaje("Descuentos guardados con Éxito", "Guardar configuración", 1);
+		dispose();
 	}
 	protected void actionPerformedBtnCancelar(ActionEvent e) {
 		dispose();
-		
 	}
+
+	double leerReal(JTextField txt) {
+		return Double.parseDouble(txt.getText());
+	}
+
+	void mensaje(String s1, String s2, int i) {
+		JOptionPane.showMessageDialog(this, s1, s2, i);
+	}
+
+
 }

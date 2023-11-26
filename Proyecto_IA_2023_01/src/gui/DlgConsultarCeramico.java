@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Toolkit;
 
 public class DlgConsultarCeramico extends JDialog implements ActionListener{
 
@@ -57,6 +58,8 @@ public class DlgConsultarCeramico extends JDialog implements ActionListener{
 	 */
 	public DlgConsultarCeramico() {
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(DlgConsultarCeramico.class.getResource("/imagen/DlgConsultar.png")));
+		setResizable(false);
 		setTitle("Mantenimiento | Consultar Cer\u00E1mico");
 		setBounds(100, 100, 496, 255);
 		getContentPane().setLayout(new BorderLayout());
@@ -90,7 +93,7 @@ public class DlgConsultarCeramico extends JDialog implements ActionListener{
 		
 		cboMarca = new JComboBox<String>();
 		cboMarca.addActionListener(this);
-		cboMarca.setModel(new DefaultComboBoxModel<String>(new String[] {"Cinza Plus", "Luxury", "Austria", "Yungay Mix", "Thalia"}));
+		cboMarca.setModel(new DefaultComboBoxModel<String>(new String[] {"Cinza Plus", "Luxury", "Austria", "Yungay Mix", "Thalía"}));
 		cboMarca.setBounds(141, 19, 197, 22);
 		contentPanel.add(cboMarca);
 		

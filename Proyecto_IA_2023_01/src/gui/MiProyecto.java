@@ -1,46 +1,55 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.awt.Component;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JSeparator;
+
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
-import com.formdev.flatlaf.FlatDarkLaf;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+import java.awt.Image;
+import java.awt.Panel;
+import java.awt.Color;
+import java.awt.Font;
 
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
-public class MiProyecto extends JFrame implements ActionListener{
+public class MiProyecto extends JFrame implements MouseListener, ActionListener{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JMenuBar menuBar;
-	private JMenu mnArchivo;
-	private JMenuItem mntmSalir;
-	private JMenu mnMantenimiento;
-	private JMenuItem mntmConsultarCeramico;
-	private JMenuItem mntmModificarCeramico;
-	private JMenuItem mntmListarCeramicos;
-	private JMenu mnVentas;
-	private JMenuItem mntmVender;
-	private JMenuItem mntmGenerarReportes;
-	private JMenu mnConfigurar;
-	private JMenuItem mntmConfigurarDescuentos;
-	private JMenuItem mntmConfigurarObsequios;
-	private JMenuItem mntmConfigurarcantidadoptima;
-	private JMenuItem mntmConfigurarCuotaDiaria;
+	private JPanel panel;
+	private JButton btnMantenimiento;
+	private JButton btnVentas;
+	private JButton btnConfiguración;
+	private JButton btnAyuda;
+	
+	
+	private Panel panel_1;
+	private JButton btnConsultarCeramico;
+	private JButton btnModificarCeramico;
+	private JButton btnListarCeramicos;
+	private JButton btnConfigurarDescuentos;
+	private JButton btnConfigurarObsequios;
+	private JButton btnConfigurarCantidad;
+	private JButton btnConfigurarCuota;
+	private JButton btnVender;
+	private JButton btnGenerarReportes;
 	
 	// Datos mínimos del primer producto
 	public static String modelo0  = "Cinza Plus";
@@ -91,22 +100,25 @@ public class MiProyecto extends JFrame implements ActionListener{
 	public static int cantidadOptima = 10;
 	// Cuota diaria
 	public static double cuotaDiaria = 30000;
+	
 
 	
+	
+
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			UIManager.setLookAndFeel(new FlatDarkLaf());
-		} catch (UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    UIManager.setLookAndFeel( new FlatMacDarkLaf() );
+		} catch( Exception ex ) {
+		    System.err.println( "Failed to initialize LaF" );
 		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					MiProyecto frame = new MiProyecto();
+					frame.setLocationRelativeTo(null); // CENTRAR EN LA PANTALLA
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -120,167 +132,538 @@ public class MiProyecto extends JFrame implements ActionListener{
 	 */
 	public MiProyecto() {
 		setResizable(false); // Evita la redimensión de la ventana
-		setTitle("Proyecto_IA_2023_01 =)  :v  :)");
+		setTitle("Ceramix");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 769, 459);
-		
-		menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		
-		mnArchivo = new JMenu("Archivo");
-		menuBar.add(mnArchivo);
-		
-		mntmSalir = new JMenuItem("Salir");
-		mntmSalir.addActionListener(this);
-		mnArchivo.add(mntmSalir);
-		
-		mnMantenimiento = new JMenu("Mantenimiento");
-		menuBar.add(mnMantenimiento);
-		
-		mntmConsultarCeramico = new JMenuItem("Consultar Cer\u00E1mico");
-		mntmConsultarCeramico.addActionListener(this); //no te olvides de poner eso si no no pudes ABRIR GAAAAAAAAAAAAAAAA 
-		mnMantenimiento.add(mntmConsultarCeramico);
-		
-		mntmModificarCeramico = new JMenuItem("Modificar Cer\u00E1mico");
-		mntmModificarCeramico.addActionListener(this);
-		mnMantenimiento.add(mntmModificarCeramico);
-		
-		mntmListarCeramicos = new JMenuItem("Listar Cer\u00E1micos");
-		mntmListarCeramicos.addActionListener(this);
-		mnMantenimiento.add(mntmListarCeramicos);
-		
-		mnVentas = new JMenu("Ventas");
-		menuBar.add(mnVentas);
-		
-		mntmVender = new JMenuItem("Vender");
-		mntmVender.addActionListener(this);
-		mnVentas.add(mntmVender);
-		
-		mntmGenerarReportes = new JMenuItem("Generar Reportes");
-		mntmGenerarReportes.addActionListener(this);
-		mnVentas.add(mntmGenerarReportes);
-		
-		mnConfigurar = new JMenu("Configuraci\u00F3n");
-		menuBar.add(mnConfigurar);
-		
-		mntmConfigurarDescuentos = new JMenuItem("Configurar Descuentos");
-		mntmConfigurarDescuentos.addActionListener(this);
-		mnConfigurar.add(mntmConfigurarDescuentos);
-		
-		mntmConfigurarObsequios = new JMenuItem("Configurar Obsequios");
-		mntmConfigurarObsequios.addActionListener(this);
-		mnConfigurar.add(mntmConfigurarObsequios);
-		
-		mntmConfigurarcantidadoptima = new JMenuItem("Configurar Cantidad \u00D3ptima ");
-		mntmConfigurarcantidadoptima.addActionListener(this);
-		mnConfigurar.add(mntmConfigurarcantidadoptima);
-		
-		mntmConfigurarCuotaDiaria = new JMenuItem("Configurar Cuota Diaria");
-		mntmConfigurarCuotaDiaria.addActionListener(this);
-		mnConfigurar.add(mntmConfigurarCuotaDiaria);
+		setBounds(100, 100, 917, 550);
 		
 		
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(5, 12, 18));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-	}
-	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource()==mntmSalir) {
-			actionPerformedMntmSalir(arg0);
-		}
-		if(arg0.getSource()==mntmConsultarCeramico) {
-			actionPerformedMntmConsultarCeramico(arg0);
-		}
-		if (arg0.getSource()==mntmModificarCeramico) {
-			actionPerformedMntmModificarCeramico(arg0);
-		}
-		if (arg0.getSource()==mntmListarCeramicos) {
-			actionPerformedMntmListarCeramicos(arg0);
-		}
-		if (arg0.getSource()==mntmVender) {
-			actionPerformedMntmVender(arg0);
-		}
-		if (arg0.getSource()==mntmGenerarReportes) {
-			actionPerformedMntmGenerarReportes(arg0);
-		}
-		if (arg0.getSource()==mntmConfigurarDescuentos) {
-			actionPerformedMntmConfigurarDescuentos(arg0);
-		}
-		if (arg0.getSource()==mntmConfigurarObsequios) {
-			actionPeformedMntmConfigurarObsequios(arg0);
-		}
-		if (arg0.getSource()==mntmConfigurarcantidadoptima) {
-			actionPerformedMntmConfigurarcantidadoptima(arg0);
-		}
-		if (arg0.getSource()==mntmConfigurarCuotaDiaria) {
-			actionPerformedMntmConfigurarCuotaDiaria(arg0);
-		}
+		
+		
+		panel_2 = new JPanel();
+		panel_2.setBounds(324, 0, 533, 511);
+		contentPane.add(panel_2);
+		panel_2.setLayout(null);
+		panel_2.setBorder(null);
+		panel_2.setBackground(new Color(5, 12, 18));
+		
+		lblNewLabel = new JLabel("Ceramix 1.0");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 26));
+		lblNewLabel.setBounds(170, 27, 170, 48);
+		panel_2.add(lblNewLabel);
+		
+		separator = new JSeparator();
+		separator.setForeground(new Color(255, 255, 255));
+		separator.setBackground(new Color(255, 255, 255));
+		separator.setBounds(63, 72, 379, 14);
+		panel_2.add(separator);
+		
+		lblAutores = new JLabel("Autores");
+		lblAutores.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAutores.setForeground(new Color(255, 255, 255));
+		lblAutores.setFont(new Font("Arial", Font.BOLD, 22));
+		lblAutores.setBounds(170, 86, 170, 48);
+		panel_2.add(lblAutores);
+		
+		lblRoy = new JLabel("Roy Ochoa");
+		lblRoy.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRoy.setForeground(new Color(255, 255, 255));
+		lblRoy.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblRoy.setBounds(170, 180, 170, 48);
+		panel_2.add(lblRoy);
+		
+		lblWilliamChipana = new JLabel("William Chipana");
+		lblWilliamChipana.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWilliamChipana.setForeground(Color.WHITE);
+		lblWilliamChipana.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblWilliamChipana.setBounds(170, 135, 170, 48);
+		panel_2.add(lblWilliamChipana);
+		
+		
+		
+		//BTN DEL MENU START aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+		
+		panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(new Color(17, 33, 45));
+		panel.setBounds(0, 0, 264, 521);
+		contentPane.add(panel);
+		
+		btnMantenimiento = new JButton("Mantenimiento");
+		btnMantenimiento.addActionListener(this);
+		btnMantenimiento.addMouseListener(this);
+		btnMantenimiento.setIcon(
+				resizeIcon(new ImageIcon(MiProyecto.class.getResource("/imagen/mantenimiento.png")),40,40));
+		btnMantenimiento.setHorizontalAlignment(SwingConstants.LEFT);
+		btnMantenimiento.setForeground(Color.WHITE);
+		btnMantenimiento.setFont(new Font("Arial Black", Font.BOLD, 20));
+		btnMantenimiento.setBorderPainted(false);
+		btnMantenimiento.setBackground(new Color(17, 33, 45));
+		btnMantenimiento.setBounds(0, 60, 264, 57);
+		panel.add(btnMantenimiento);
+		
+		btnVentas = new JButton("Ventas");
+		btnVentas.addActionListener(this);
+		btnVentas.addMouseListener(this);
+		btnVentas.setIcon(
+				resizeIcon(new ImageIcon(MiProyecto.class.getResource("/imagen/ventas.png")),40,40));
+		btnVentas.setHorizontalAlignment(SwingConstants.LEFT);
+		btnVentas.setForeground(Color.WHITE);
+		btnVentas.setFont(new Font("Arial Black", Font.BOLD, 20));
+		btnVentas.setBorderPainted(false);
+		btnVentas.setBackground(new Color(17, 33, 45));
+		btnVentas.setBounds(0, 176, 264, 57);
+		panel.add(btnVentas);
+		
+		btnConfiguración = new JButton("Configuraci\u00F3n");
+		btnConfiguración.addActionListener(this);
+		btnConfiguración.addMouseListener(this);
+		btnConfiguración.setIcon(
+				resizeIcon(new ImageIcon(MiProyecto.class.getResource("/imagen/ajuste.png")),40,40));
+		btnConfiguración.setHorizontalAlignment(SwingConstants.LEFT);
+		btnConfiguración.setForeground(Color.WHITE);
+		btnConfiguración.setFont(new Font("Arial Black", Font.BOLD, 20));
+		btnConfiguración.setBorderPainted(false);
+		btnConfiguración.setBackground(new Color(17, 33, 45));
+		btnConfiguración.setBounds(0, 118, 264, 57);
+		panel.add(btnConfiguración);
+		
+		btnAyuda = new JButton("Ayuda");
+		btnAyuda.addActionListener(this);
+		btnAyuda.addMouseListener(this);
+		btnAyuda.setIcon(
+				resizeIcon(new ImageIcon(MiProyecto.class.getResource("/imagen/ayuda.png")),40,40));
+		btnAyuda.setHorizontalAlignment(SwingConstants.LEFT);
+		btnAyuda.setForeground(Color.WHITE);
+		btnAyuda.setFont(new Font("Arial Black", Font.BOLD, 20));
+		btnAyuda.setBorderPainted(false);
+		btnAyuda.setBackground(new Color(17, 33, 45));
+		btnAyuda.setBounds(0, 234, 264, 57);
+		panel.add(btnAyuda);
+		
+		btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(this);
+		btnSalir.addMouseListener(this);
+		btnSalir.setIcon(
+				resizeIcon(new ImageIcon(MiProyecto.class.getResource("/imagen/exit.png")),40,40));
+		btnSalir.setHorizontalAlignment(SwingConstants.LEFT);
+		btnSalir.setForeground(Color.WHITE);
+		btnSalir.setFont(new Font("Arial Black", Font.BOLD, 20));
+		btnSalir.setBorderPainted(false);
+		btnSalir.setBackground(new Color(17, 33, 45));
+		btnSalir.setBounds(0, 292, 264, 57);
+		panel.add(btnSalir);
+	
+		//BTN DEL MENU END
+		
+		
+		
+		
+		
+		//PANEL 11111111111111111111111111111111111111
+		
+		panel_1 = new Panel();
+		panel_1.setBackground(new Color(5, 12, 18));
+		panel_1.setBounds(270, 10, 631, 491);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		btnConsultarCeramico = new JButton("Consultar Cer\u00E1mico");
+		btnConsultarCeramico.addActionListener(this);
+		btnConsultarCeramico.setIcon(
+				resizeIcon(new ImageIcon(MiProyecto.class.getResource("/imagen/Consultar.png")),70,70));
+		btnConsultarCeramico.setForeground(Color.WHITE);
+		btnConsultarCeramico.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnConsultarCeramico.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnConsultarCeramico.setFont(new Font("Arial Black", Font.PLAIN, 15));
+		btnConsultarCeramico.setBorderPainted(false);
+		btnConsultarCeramico.setBackground(new Color(74, 92, 106));
+		btnConsultarCeramico.setBounds(80, 10, 230, 230);
+		panel_1.add(btnConsultarCeramico);
+
+		
+		btnModificarCeramico = new JButton("Modificar Cer\u00E1mico");
+		btnModificarCeramico.addActionListener(this);
+		btnModificarCeramico.setIcon(
+				resizeIcon(new ImageIcon(MiProyecto.class.getResource("/imagen/Modificar.png")),60,60));
+		btnModificarCeramico.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnModificarCeramico.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnModificarCeramico.setForeground(Color.WHITE);
+		btnModificarCeramico.setFont(new Font("Arial Black", Font.PLAIN, 15));
+		btnModificarCeramico.setBorderPainted(false);
+		btnModificarCeramico.setBackground(new Color(74, 92, 106));
+		btnModificarCeramico.setBounds(330, 10, 230, 230);
+		panel_1.add(btnModificarCeramico);
+		
+		
+		btnListarCeramicos = new JButton("Listar Cer\u00E1micos");
+		btnListarCeramicos.addActionListener(this);
+		btnListarCeramicos.setIcon(
+				resizeIcon(new ImageIcon(MiProyecto.class.getResource("/imagen/Listar.png")),60,60));
+		btnListarCeramicos.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnListarCeramicos.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnListarCeramicos.setForeground(Color.WHITE);
+		btnListarCeramicos.setFont(new Font("Arial Black", Font.PLAIN, 15));
+		btnListarCeramicos.setBorderPainted(false);
+		btnListarCeramicos.setBackground(new Color(74, 92, 106));
+		btnListarCeramicos.setBounds(80, 250, 230, 230);
+		panel_1.add(btnListarCeramicos);
+		
+		
+		btnConfigurarDescuentos = new JButton("Configurar Descuentos");
+		btnConfigurarDescuentos.addActionListener(this);
+		btnConfigurarDescuentos.setIcon(
+				resizeIcon(new ImageIcon(MiProyecto.class.getResource("/imagen/Descuento.png")),60,60));
+		btnConfigurarDescuentos.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnConfigurarDescuentos.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnConfigurarDescuentos.setForeground(Color.WHITE);
+		btnConfigurarDescuentos.setFont(new Font("Arial Black", Font.PLAIN, 15));
+		btnConfigurarDescuentos.setBorderPainted(false);
+		btnConfigurarDescuentos.setBackground(new Color(74, 92, 106));
+		btnConfigurarDescuentos.setBounds(80, 10, 230, 230);
+		panel_1.add(btnConfigurarDescuentos);
+		
+		
+		btnConfigurarObsequios = new JButton("Configurar Obsequios");
+		btnConfigurarObsequios.addActionListener(this);
+		btnConfigurarObsequios.setIcon(
+				resizeIcon(new ImageIcon(MiProyecto.class.getResource("/imagen/Obsequio.png")),60,60));
+		btnConfigurarObsequios.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnConfigurarObsequios.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnConfigurarObsequios.setForeground(Color.WHITE);
+		btnConfigurarObsequios.setFont(new Font("Arial Black", Font.PLAIN, 15));
+		btnConfigurarObsequios.setBorderPainted(false);
+		btnConfigurarObsequios.setBackground(new Color(74, 92, 106));
+		btnConfigurarObsequios.setBounds(330, 10, 230, 230);
+		panel_1.add(btnConfigurarObsequios);
+		
+		
+		btnConfigurarCantidad = new JButton("Configurar Cantidad");
+		btnConfigurarCantidad.addActionListener(this);
+		btnConfigurarCantidad.setIcon(
+				resizeIcon(new ImageIcon(MiProyecto.class.getResource("/imagen/Cantidad.png")),60,60));
+		btnConfigurarCantidad.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnConfigurarCantidad.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnConfigurarCantidad.setForeground(Color.WHITE);
+		btnConfigurarCantidad.setFont(new Font("Arial Black", Font.PLAIN, 15));
+		btnConfigurarCantidad.setBorderPainted(false);
+		btnConfigurarCantidad.setBackground(new Color(74, 92, 106));
+		btnConfigurarCantidad.setBounds(80, 251, 230, 230);
+		panel_1.add(btnConfigurarCantidad);
+		
+		
+		btnConfigurarCuota = new JButton("Configurar Cuota");
+		btnConfigurarCuota.addActionListener(this);
+		btnConfigurarCuota.setIcon(
+				resizeIcon(new ImageIcon(MiProyecto.class.getResource("/imagen/Cuota.png")),60,60));
+		btnConfigurarCuota.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnConfigurarCuota.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnConfigurarCuota.setForeground(Color.WHITE);
+		btnConfigurarCuota.setFont(new Font("Arial Black", Font.PLAIN, 15));
+		btnConfigurarCuota.setBorderPainted(false);
+		btnConfigurarCuota.setBackground(new Color(74, 92, 106));
+		btnConfigurarCuota.setBounds(330, 250, 230, 230);
+		panel_1.add(btnConfigurarCuota);
+		
+		
+		btnVender = new JButton("Vender");
+		btnVender.addActionListener(this);
+		btnVender.setIcon(
+				resizeIcon(new ImageIcon(MiProyecto.class.getResource("/imagen/vender.png")),60,60));
+		btnVender.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnVender.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnVender.setForeground(Color.WHITE);
+		btnVender.setFont(new Font("Arial Black", Font.PLAIN, 15));
+		btnVender.setBorderPainted(false);
+		btnVender.setBackground(new Color(74, 92, 106));
+		btnVender.setBounds(80, 10, 230, 230);
+		panel_1.add(btnVender);
+		
+		
+		btnGenerarReportes = new JButton("Generar Reportes");
+		btnGenerarReportes.addActionListener(this);
+		btnGenerarReportes.setIcon(
+				resizeIcon(new ImageIcon(MiProyecto.class.getResource("/imagen/Reportes.png")),60,60));
+		btnGenerarReportes.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnGenerarReportes.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnGenerarReportes.setForeground(Color.WHITE);
+		btnGenerarReportes.setFont(new Font("Arial Black", Font.PLAIN, 15));
+		btnGenerarReportes.setBorderPainted(false);
+		btnGenerarReportes.setBackground(new Color(74, 92, 106));
+		btnGenerarReportes.setBounds(330, 10, 230, 230);
+		panel_1.add(btnGenerarReportes);
+		
+
+
+		
+		
+		
+		btnConsultarCeramico.setVisible(false);
+		btnModificarCeramico.setVisible(false);
+		btnListarCeramicos.setVisible(false);
+		
+		btnConfigurarDescuentos.setVisible(false);
+		btnConfigurarObsequios.setVisible(false);
+		btnConfigurarCantidad.setVisible(false);
+		btnConfigurarCuota.setVisible(false);
+		
+		btnVender.setVisible(false);
+		btnGenerarReportes.setVisible(false);
+		panel_2.setVisible(false);
+		
+		
+	    contentPane.setIgnoreRepaint(true);
+	    panel_1.setIgnoreRepaint(true);
 		
 	}
-	protected void actionPerformedMntmSalir(ActionEvent arg0) {
-		
-		int ok = confirmar("¿ Desea salir del Sistema ?", "Saliendo del Sistema");
-		if (ok == 0)
-			System.exit(0);	
+	Component botonSeleccionado;
+	private JButton btnSalir;
+	private JPanel panel_2;
+	private JLabel lblNewLabel;
+	private JLabel lblAutores;
+	private JSeparator separator;
+	private JLabel lblRoy;
+	private JLabel lblWilliamChipana;
+	
+	public static ImageIcon resizeIcon(ImageIcon icon, int width, int height) {
+		Image image = icon.getImage();
+		Image newImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		return new ImageIcon(newImage);
+	}
+	
+
+	public void mouseClicked(MouseEvent e) {
 	}
 
-	protected void actionPerformedMntmConsultarCeramico(ActionEvent arg0) {
-	    DlgConsultarCeramico dcc = new DlgConsultarCeramico();
-	    dcc.setLocationRelativeTo(this);
-	    dcc.setVisible(true);
-	   
+	public void mouseEntered(MouseEvent e) {
+	
+		if(botonSeleccionado != e.getComponent()) {
+			e.getComponent().setBackground(new Color(37, 55, 69));
+		}
+		
+		
+	}
+	public void mouseExited(MouseEvent e) {
+		if(botonSeleccionado != e.getComponent()) {
+			e.getComponent().setBackground(new Color(17, 33, 45));
+		}
 	}
 	
-	protected void actionPerformedMntmModificarCeramico(ActionEvent arg0) {
+	public void mousePressed(MouseEvent e) {
+		
+	}
+	public void mouseReleased(MouseEvent e) {
+		
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource()==btnSalir) {
+			botonSeleccionado = btnSalir;
+			actionPerformedBtnSalir(e);
+		}
+		if (e.getSource()==btnMantenimiento) {
+			botonSeleccionado = btnMantenimiento;
+			actionPerformedBtnMantenimiento(e);
+		}
+		if (e.getSource()==btnVentas) {
+			botonSeleccionado = btnVentas;
+			actionPerformedBtnVentas(e);
+		}
+		if (e.getSource()==btnConfiguración) {
+			botonSeleccionado = btnConfiguración;
+			actionPerformedBtnConfiguración(e);
+		}
+		if (e.getSource()==btnAyuda) {
+			botonSeleccionado = btnAyuda;
+			actionPerformedBtnAyuda(e);
+		}
+		
+		
+		
+		if (e.getSource()==btnConsultarCeramico) {
+			actionPerformedBtnConsultarCeramico(e);
+		}
+		if (e.getSource()==btnModificarCeramico) {
+			actionPerformedBtnModificarCeramico(e);
+		}
+		if (e.getSource()==btnListarCeramicos) {
+			actionPerformedBtnListarCeramicos(e);
+		}
+		if (e.getSource()==btnConfigurarDescuentos) {
+			actionPerformedBtnConfigurarDescuentos(e);
+		}
+		if (e.getSource()==btnConfigurarObsequios) {
+			actionPerformedBtnConfigurarObsequios(e);
+		}
+		if (e.getSource()==btnConfigurarCantidad) {
+			actionPerformedBtnConfigurarCantidad(e);
+		}
+		if (e.getSource()==btnConfigurarCuota) {
+			actionPerformedtnConfigurarCuota(e);
+		}
+		if (e.getSource()==btnVender) {
+			actionPerformedBtnVender(e);
+		}
+		if (e.getSource()==btnGenerarReportes) {
+			actionPerformedBtnGenerarReportes(e);
+		}
+		
+		
+		
+
+	}
+	protected void actionPerformedBtnMantenimiento (ActionEvent e) {
+		btnConsultarCeramico.setVisible(true);
+		btnModificarCeramico.setVisible(true);
+		btnListarCeramicos.setVisible(true);
+		
+		
+		btnConfigurarDescuentos.setVisible(false);
+		btnConfigurarObsequios.setVisible(false);
+		btnConfigurarCantidad.setVisible(false);
+		btnConfigurarCuota.setVisible(false);
+		
+		btnVender.setVisible(false);
+		btnGenerarReportes.setVisible(false);
+		panel_2.setVisible(false);
+
+		
+		
+		btnMantenimiento.setBackground(new Color(74, 92, 106));
+		btnVentas.setBackground(new Color(17, 33, 45));
+		btnConfiguración.setBackground(new Color(17, 33, 45));
+		btnAyuda.setBackground(new Color(17, 33, 45));
+	}
+	protected void actionPerformedBtnVentas (ActionEvent e) {
+		btnConsultarCeramico.setVisible(false);
+		btnModificarCeramico.setVisible(false);
+		btnListarCeramicos.setVisible(false);
+		
+		
+		btnConfigurarDescuentos.setVisible(false);
+		btnConfigurarObsequios.setVisible(false);
+		btnConfigurarCantidad.setVisible(false);
+		btnConfigurarCuota.setVisible(false);
+		
+		btnVender.setVisible(true);
+		btnGenerarReportes.setVisible(true);
+		panel_2.setVisible(false);
+		
+		
+		btnVentas.setBackground(new Color(74, 92, 106));
+		btnMantenimiento.setBackground(new Color(17, 33, 45));
+		btnConfiguración.setBackground(new Color(17, 33, 45));
+		btnAyuda.setBackground(new Color(17, 33, 45));
+	}
+	protected void actionPerformedBtnConfiguración (ActionEvent e) {
+		btnConsultarCeramico.setVisible(false);
+		btnModificarCeramico.setVisible(false);
+		btnListarCeramicos.setVisible(false);
+		
+		
+		btnConfigurarDescuentos.setVisible(true);
+		btnConfigurarObsequios.setVisible(true);
+		btnConfigurarCantidad.setVisible(true);
+		btnConfigurarCuota.setVisible(true);
+		
+		btnVender.setVisible(false);	
+		btnGenerarReportes.setVisible(false);
+		panel_2.setVisible(false);
+		
+		
+		btnConfiguración.setBackground(new Color(74, 92, 106));
+		btnMantenimiento.setBackground(new Color(17, 33, 45));
+		btnVentas.setBackground(new Color(17, 33, 45));
+		btnAyuda.setBackground(new Color(17, 33, 45));
+	}
+	protected void actionPerformedBtnAyuda (ActionEvent e) {
+		btnConsultarCeramico.setVisible(false);
+		btnModificarCeramico.setVisible(false);
+		btnListarCeramicos.setVisible(false);
+		
+		
+		btnConfigurarDescuentos.setVisible(false);
+		btnConfigurarObsequios.setVisible(false);
+		btnConfigurarCantidad.setVisible(false);
+		btnConfigurarCuota.setVisible(false);
+		
+		btnVender.setVisible(false);	
+		btnGenerarReportes.setVisible(false);
+		panel_2.setVisible(true);
+		
+		btnAyuda.setBackground(new Color(74, 92, 106));
+		btnVentas.setBackground(new Color(17, 33, 45));
+		btnConfiguración.setBackground(new Color(17, 33, 45));
+	}
+	protected void actionPerformedBtnSalir(ActionEvent e) {
+		System.exit(0);
+	}
+	
+	
+	protected void actionPerformedBtnConsultarCeramico(ActionEvent e) {
+		DlgConsultarCeramico dcc= new DlgConsultarCeramico();
+		dcc.setLocationRelativeTo(this);
+		dcc.setModal(true);
+		dcc.setVisible(true);
+	}
+	protected void actionPerformedBtnModificarCeramico(ActionEvent e) {
 		DlgModificarCeramico dmc = new DlgModificarCeramico();
 		dmc.setLocationRelativeTo(this);
+		dmc.setModal(true);
 		dmc.setVisible(true);
 	}
-	
-	protected void actionPerformedMntmListarCeramicos(ActionEvent arg0) {		
-		DlgListarCeramico dlc =new DlgListarCeramico();
+	protected void actionPerformedBtnListarCeramicos(ActionEvent e) {
+		DlgListarCeramico dlc = new DlgListarCeramico();
 		dlc.setLocationRelativeTo(this);
-		dlc.setVisible(true);	
+		dlc.setModal(true);
+		dlc.setVisible(true);
 	}
-	protected void actionPerformedMntmVender(ActionEvent arg0) {
-		DlgVender dv = new DlgVender();
-		dv.setLocationRelativeTo(this);
-		dv.setVisible(true);		
-	}
-	protected void actionPerformedMntmGenerarReportes(ActionEvent arg0) {
-		DlgGenerarReportes dgr = new DlgGenerarReportes();
-		dgr.setLocationRelativeTo(this);
-		dgr.setVisible(true);	
-	}
-	protected void actionPerformedMntmConfigurarDescuentos(ActionEvent arg0) {
+	
+	
+	
+	protected void actionPerformedBtnConfigurarDescuentos(ActionEvent e) {
 		DlgConfigurarDescuentos dcd = new DlgConfigurarDescuentos();
 		dcd.setLocationRelativeTo(this);
+		dcd.setModal(true);
 		dcd.setVisible(true);
 	}
-	protected void actionPeformedMntmConfigurarObsequios(ActionEvent arg0) {
+	protected void actionPerformedBtnConfigurarObsequios(ActionEvent e) {
 		DlgConfigurarObsequios dco = new DlgConfigurarObsequios();
 		dco.setLocationRelativeTo(this);
+		dco.setModal(true);
 		dco.setVisible(true);
 	}
-	protected void actionPerformedMntmConfigurarcantidadoptima(ActionEvent arg0) {
+	protected void actionPerformedBtnConfigurarCantidad(ActionEvent e) {
 		DlgConfigurarCantidadOptima dcco = new DlgConfigurarCantidadOptima();
 		dcco.setLocationRelativeTo(this);
+		dcco.setModal(true);
 		dcco.setVisible(true);
 	}
-	protected void actionPerformedMntmConfigurarCuotaDiaria(ActionEvent arg0) {
-		DlgConfigurarCuotaDiaria dccd =new DlgConfigurarCuotaDiaria();
+	protected void actionPerformedtnConfigurarCuota(ActionEvent e) {
+		DlgConfigurarCuotaDiaria dccd = new DlgConfigurarCuotaDiaria();
 		dccd.setLocationRelativeTo(this);
+		dccd.setModal(true);
 		dccd.setVisible(true);
 	}
 	
 	
 	
-	void mensaje(String s) {
-		JOptionPane.showMessageDialog(this, s);
+	protected void actionPerformedBtnVender(ActionEvent e) {
+		DlgVender dv = new DlgVender();
+		dv.setLocationRelativeTo(this);
+		dv.setModal(true);
+		dv.setVisible(true);
 	}
-
-	int confirmar(String s1, String s2) {
-		return JOptionPane.showConfirmDialog(this, s1, s2, 0, 2, null);
+	protected void actionPerformedBtnGenerarReportes(ActionEvent e) {
+		DlgGenerarReportes dmc = new DlgGenerarReportes();
+		dmc.setLocationRelativeTo(this);
+		dmc.setModal(true);
+		dmc.setVisible(true);
 	}
 }

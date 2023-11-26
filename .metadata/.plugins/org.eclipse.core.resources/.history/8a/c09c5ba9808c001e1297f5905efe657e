@@ -1,0 +1,311 @@
+package gui;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
+public class DlgVender extends JDialog implements ActionListener {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final JPanel contentPanel = new JPanel();
+	private JTextField txtPrecio;
+	private JTextField txtCantidad;
+	private JLabel lblModelo;
+	private JLabel lblPrecio;
+	private JLabel lblCantidad;
+	private JComboBox<String>cboMarca;
+	private JButton btnVender;
+	private JButton btnCerrar;
+	private JScrollPane scrollPane;
+	private JTextArea txtS;
+	
+	public static int numeroVentas = 0;
+    private static double importeGeneralAcumulado = 0.0;
+    
+    private static double impP;
+    
+    public static int  cantidadVentasM0 = 0,
+    				   cantidadVentasM1 = 0,
+    				   cantidadVentasM2 = 0,
+    				   cantidadVentasM3 = 0,
+    				   cantidadVentasM4 = 0,
+    				   
+    				   cajasVendidasM0 = 0,
+    				   cajasVendidasM1 = 0,
+    				   cajasVendidasM2 = 0,
+    				   cajasVendidasM3 = 0,
+    				   cajasVendidasM4 = 0;
+    
+    public static double impPAcumuladoM0 = 0,
+    					 impPAcumuladoM1 = 0,   							 
+    					 impPAcumuladoM2 = 0,    									 
+    					 impPAcumuladoM3 = 0,	
+    					 impPAcumuladoM4 = 0;
+    
+ 
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			DlgVender dialog = new DlgVender();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public DlgVender() {
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(DlgVender.class.getResource("/imagen/DlgVender.png")));
+		setTitle("Ventas | Vender");
+		setBounds(100, 100, 521, 317);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		
+		lblModelo = new JLabel("Modelo");
+		lblModelo.setBounds(10, 11, 72, 14);
+		contentPanel.add(lblModelo);
+		
+		lblPrecio = new JLabel("Precio (S/)");
+		lblPrecio.setBounds(10, 36, 72, 14);
+		contentPanel.add(lblPrecio);
+		
+		lblCantidad = new JLabel("Cantidad");
+		lblCantidad.setBounds(10, 61, 72, 14);
+		contentPanel.add(lblCantidad);
+		
+		cboMarca = new JComboBox<String>();
+		cboMarca.addActionListener(this);
+		cboMarca.setModel(new DefaultComboBoxModel<String>(new String[] {"Cinza Plus", "Luxury", "Austria", "Yungay Mix", "Thalía"}));
+		cboMarca.setBounds(92, 7, 196, 22);
+		contentPanel.add(cboMarca);
+	
+		txtPrecio = new JTextField(MiProyecto.precio0 + "");
+		txtPrecio.setBounds(92, 33, 196, 20);
+		txtPrecio.setEditable(false);
+		contentPanel.add(txtPrecio);
+		txtPrecio.setColumns(10);
+		
+		txtCantidad = new JTextField();
+		txtCantidad.setColumns(10);
+		txtCantidad.setBounds(92, 58, 196, 20);
+		contentPanel.add(txtCantidad);
+	
+		
+		btnVender = new JButton("Vender");
+		btnVender.addActionListener(this);
+		btnVender.setBounds(406, 7, 89, 23);
+		contentPanel.add(btnVender);
+		
+		btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(this);		
+		btnCerrar.setBounds(406, 32, 89, 23);
+		contentPanel.add(btnCerrar);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 88, 485, 179);
+		contentPanel.add(scrollPane);
+		
+		txtS = new JTextArea();
+		scrollPane.setViewportView(txtS);
+		
+		txtCantidad.addKeyListener(new NumericKeyListener());
+		
+	
+	}
+	private class NumericKeyListener implements KeyListener {
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            // Permitir solo caracteres numéricos
+            if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                e.consume(); // Consumir el evento para evitar la entrada no deseada
+            }
+        }
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                // Llama al método que realiza el cálculo cuando se presiona Enter
+                actionPerformedBtnVender(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+            }
+        }
+
+        public void keyReleased(KeyEvent e) {
+            // No necesitamos implementar este método
+        }
+        
+
+    }
+	public void actionPerformed (ActionEvent arg0) {
+		if (arg0.getSource()==btnVender) {
+			actionPerformedBtnVender(arg0);
+		}
+		if (arg0.getSource()==btnCerrar) {
+			actionPerformedBtnCerrar(arg0);
+		}
+		if (arg0.getSource()==cboMarca) {
+			actionPerformedCboMarca(arg0);
+		}
+
+	}
+	protected void actionPerformedCboMarca (ActionEvent arg0) {
+		int marca=cboMarca.getSelectedIndex();
+		switch (marca) {
+			case 0:
+				txtPrecio.setText(MiProyecto.precio0 + "");
+				break;
+			case 1:
+				txtPrecio.setText(MiProyecto.precio1 + "");
+				break;
+			case 2:
+				txtPrecio.setText(MiProyecto.precio2 + "");
+				break;
+			case 3:
+				txtPrecio.setText(MiProyecto.precio3 + "");
+				break;
+			default:
+				txtPrecio.setText(MiProyecto.precio4 + "");
+		}
+		txtCantidad.requestFocus();
+	}
+	
+	
+	
+	protected void actionPerformedBtnVender (ActionEvent arg0) {
+		double impC,impD;
+		int cant, obs;
+			   cant = Integer.parseInt(txtCantidad.getText());
+		double pre = Double.parseDouble(txtPrecio.getText());
+		String modelo;
+	
+
+		
+		switch (cboMarca.getSelectedIndex()) {
+		case 0:
+			modelo = MiProyecto.modelo0;
+			break;
+		case 1:
+			modelo = MiProyecto.modelo1;
+			break;
+		case 2:
+			modelo = MiProyecto.modelo2;
+			break;
+		case 3:
+			modelo = MiProyecto.modelo3;
+			break;
+		default: 
+			modelo = MiProyecto.modelo4;
+	}
+		
+		impC=pre*cant;
+		
+		if 		(cant >= 1 && cant <= 5) {impD = MiProyecto.porcentaje1 / 100 * impC;} 
+		else if (cant >= 6 && cant <= 10) {impD = MiProyecto.porcentaje2 / 100 * impC;}
+		else if (cant >= 11 && cant <= 15) {impD = MiProyecto.porcentaje3 / 100 * impC;} 
+		else								 {impD = MiProyecto.porcentaje4 / 100 * impC;}
+
+	
+		
+		impP = impC-impD;
+		
+		
+		if (cant >= 1 && cant <= 5)      {obs= MiProyecto.obsequioCantidad1;}
+		else if (cant >= 6 && cant <= 10){obs= MiProyecto.obsequioCantidad2;}
+		else 							 {obs= MiProyecto.obsequioCantidad3;}
+		
+		
+        numeroVentas++;
+        importeGeneralAcumulado += impP;
+
+			imprimir("");
+			imprimir("");
+			imprimir("Modelo              : " + modelo);
+			imprimir("Precio              : " + "S/. " + pre);
+			imprimir("Cantidad adquirida  : " + cant);
+			imprimir("Importe compra      : " + "S/. " + DF(impC));
+			imprimir("Importe descuento   : " + "S/. " + DF(impD));
+			imprimir("Importe pagar       : " + "S/. " + DF(impP));
+			imprimir("Tipo de obsequio    : " + MiProyecto.tipoObsequio);
+			imprimir("Unidades obsequiadas: " + obs);
+		if (numeroVentas % 5 == 0) {
+			mostrarInfoAcumulada();
+		}	
+		switch(cboMarca.getSelectedIndex()) {
+			case 0:
+				cantidadVentasM0 ++;
+				cajasVendidasM0 += cant;
+				impPAcumuladoM0 += impP;
+				break;
+			case 1:
+				cantidadVentasM1 ++;
+				cajasVendidasM1 += cant;
+				impPAcumuladoM1 += impP;
+				break;
+			case 2:
+				cantidadVentasM2 ++;
+				cajasVendidasM2 += cant;
+				impPAcumuladoM2 += impP;
+				break;
+			case 3:
+				cantidadVentasM3 ++;
+				cajasVendidasM3 += cant;
+				impPAcumuladoM3 += impP;
+				break;
+			default:
+				cantidadVentasM4 ++;
+				cajasVendidasM4 += cant;
+				impPAcumuladoM4 += impP;
+		}
+		
+		
+
+	}
+
+
+	private void mostrarInfoAcumulada() {
+		double porcentajeAlcanzado = (importeGeneralAcumulado / MiProyecto.cuotaDiaria) * 100;
+
+	        JOptionPane.showMessageDialog(this,
+	                "Número de Ventas Actual        :     " + numeroVentas + "\n" +
+	                "Importe Total General Acumulado: S/. " + DF(importeGeneralAcumulado) + "\n" +
+	                "Porcentaje de la Cuota Diaria  :     " + DF(porcentajeAlcanzado) + "%",
+	                "Información Acumulada", JOptionPane.INFORMATION_MESSAGE);
+	    }
+
+    protected void actionPerformedBtnCerrar(ActionEvent arg0) {
+        // Muestra la ventana emergente con la información acumulada
+        mostrarInfoAcumulada();
+        dispose();
+    }
+	String DF(double p) {
+		return String.format("%.2f",p).replace(",",".");
+	}
+	public void imprimir (String s) {
+		txtS.append(s +"\n");
+	}
+}
