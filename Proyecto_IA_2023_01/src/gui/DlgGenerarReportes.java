@@ -318,7 +318,7 @@ public class DlgGenerarReportes extends JDialog implements ActionListener{
 		for(int i=1;i<=DlgVender.numeroVentas;i++) 
 		{
 			if(i==1) {
-				TotalVenta = TotalVenta + MiProyecto.precio0;
+				TotalVenta += MiProyecto.precio0;
 				Precio = MiProyecto.precio0;
 				PrecioMenor = Precio;
 			}

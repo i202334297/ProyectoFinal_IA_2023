@@ -13,6 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
 
+import com.formdev.flatlaf.intellijthemes.FlatCarbonIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatDraculaIJTheme;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 import java.awt.event.ActionListener;
@@ -110,7 +112,7 @@ public class MiProyecto extends JFrame implements MouseListener, ActionListener{
 	 */
 	public static void main(String[] args) {
 		try {
-		    UIManager.setLookAndFeel( new FlatMacDarkLaf() );
+		    UIManager.setLookAndFeel( new FlatCarbonIJTheme() );
 		} catch( Exception ex ) {
 		    System.err.println( "Failed to initialize LaF" );
 		}
@@ -187,7 +189,7 @@ public class MiProyecto extends JFrame implements MouseListener, ActionListener{
 		
 		
 		
-		//BTN DEL MENU START aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+	
 		
 		panel = new JPanel();
 		panel.setLayout(null);
@@ -266,7 +268,7 @@ public class MiProyecto extends JFrame implements MouseListener, ActionListener{
 		
 		
 		
-		//PANEL 11111111111111111111111111111111111111
+		//PANEL 1
 		
 		panel_1 = new Panel();
 		panel_1.setBackground(new Color(5, 12, 18));

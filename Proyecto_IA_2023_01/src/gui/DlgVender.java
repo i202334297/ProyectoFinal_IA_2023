@@ -233,7 +233,7 @@ public class DlgVender extends JDialog implements ActionListener {
 		if 		(cant >= 1 && cant <= 5) {impD = MiProyecto.porcentaje1 / 100 * impC;} 
 		else if (cant >= 6 && cant <= 10) {impD = MiProyecto.porcentaje2 / 100 * impC;}
 		else if (cant >= 11 && cant <= 15) {impD = MiProyecto.porcentaje3 / 100 * impC;} 
-		else								 {impD = MiProyecto.porcentaje4 / 100 * impC;}
+		else								{impD = MiProyecto.porcentaje4 / 100 * impC;}
 
 	
 		

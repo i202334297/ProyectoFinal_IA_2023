@@ -90,12 +90,9 @@ public class DlgConfigurarCantidadOptima extends JDialog implements ActionListen
             	actionPerformedBtnAceptar(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
             } 
         }
-
         public void keyReleased(KeyEvent e) {
         	validarCampos();
         }
-        
-        
     	public void validarCampos() {
 
     		JTextField elementos[] = { txtCantidad };
@@ -120,13 +117,12 @@ public class DlgConfigurarCantidadOptima extends JDialog implements ActionListen
 	}
 
 	protected void actionPerformedBtnAceptar(ActionEvent e) {
-		int cantObtima = leerEntero(txtCantidad);
+		int cantObtima = leerEntero(txtCantidad); 
 		
-		MiProyecto.cantidadOptima = cantObtima;
+		MiProyecto.cantidadOptima = cantObtima;	
 		mensaje("Cantidad optima guardada con Éxito", "Guardar Cantidad Optima", 1);
 		dispose();
 	}
-	
 	protected void actionPerformedBtnCancelar(ActionEvent e) {
 		dispose();
 	}

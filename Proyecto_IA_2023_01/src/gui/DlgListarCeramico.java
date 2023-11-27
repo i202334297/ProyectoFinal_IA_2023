@@ -82,15 +82,11 @@ public class DlgListarCeramico extends JDialog implements ActionListener{
 	}
 	protected void actionPerformedBtnListar(ActionEvent e) {
 		txtS.setText("");
-		listar();
-		
+		listar();	
 	}
-	
-	
 	protected void actionPerformedBtnCerrar(ActionEvent e) {
 		dispose();
 	}
-	
 	void listar() {
 		imprimir("LISTADO DE CERÁMICOS");
 		imprimir("");
@@ -137,11 +133,11 @@ public class DlgListarCeramico extends JDialog implements ActionListener{
 		imprimir("Espesor   (mm)  : " + decimalFormat(MiProyecto.espesor4));
 		imprimir("Contenido (cm)  : " + decimalFormat(MiProyecto.contenido4) + " Unidades");
 	}
-	//  Métodos tipo void (con parámetros)	
+
 	void imprimir(String s) {
 		txtS.append(s + " \n ");
 	}
-	//  Métodos que retornan valor (con parámetros)
+	//DECIMAL FORMAT
 	String decimalFormat(double p) {
 		return String.format("%.2f",p).replace(",",".");
 	}

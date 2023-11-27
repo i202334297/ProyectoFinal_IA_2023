@@ -185,6 +185,7 @@ public class DlgConfigurarObsequios extends JDialog implements ActionListener{
 	}
 	protected void actionPerformedBtnAceptar(ActionEvent e) {
 		MiProyecto.tipoObsequio = txtTipodeObsequio.getText();
+		
 		int unidad1 = leerEntero(txtUnidades1);
 		int unidad2 = leerEntero(txtUnidades2);
 		int unidad3 = leerEntero(txtUnidades3);
